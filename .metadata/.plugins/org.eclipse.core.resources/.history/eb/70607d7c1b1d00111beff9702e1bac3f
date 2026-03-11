@@ -1,0 +1,15 @@
+package ems;
+
+public class HourlyEmployee extends Employee {
+	
+	public void hire() {
+		
+	}
+	public String getCurrent() {
+		
+	}
+	public void getHistory() {
+		System.out.println("Employee was hired on hourly basis");
+		super.getHistory();
+	}
+}

@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Library {
+
+	List<Book> books = new ArrayList<>();
+
+	void addBook(String title) {
+		Book book = new Book(title, STATUS.AVAILABLE);
+		book.status = STATUS.AVAILABLE;
+		books.add(book);
+	}
+
+	void borrowBook(String title) throws Exception {
+		for (Book b : books) {
+			if (b.title.equals(title) && b.status == STATUS.AVAILABLE) {
+				b.status = STATUS.BOOKED;
+				System.out.println("Borrowed: " + title);
+				return;
+			}
+		}
+		throw new Exception("Book is not availaible.");
+	}
+	List<Book> find(String title){ 
+		List<Book> books = new ArrayList<>();
+		for (Book book : books) {
+			if(book.title.toLowerCase().contains(title.toLowerCase())) {
+				books.add(book);
+			}
+		}
+		return books;
+	}
+
+	void displayBooks() {
+		for (Book b : books)
+			if (b.status == STATUS.AVAILABLE)
+				System.out.println(b.title);
+	}
+}

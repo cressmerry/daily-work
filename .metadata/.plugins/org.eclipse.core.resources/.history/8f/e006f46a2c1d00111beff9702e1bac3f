@@ -1,0 +1,21 @@
+package rough;
+
+class test {
+	  public static void main (String args[]) {
+	    int i = 0, j = 0, k = 0;
+	label1:
+	    for (int h = 0; h < 6; h++) {
+	label2:
+	      do { i++; k = h + i + j;
+	        switch (k) {
+	          default: break label1;
+	          case 1: continue label2;
+	          case 2: break;
+	          case 3: break label2;
+	          case 4: continue label2;
+	          case 5: continue label1;
+	        }
+	      } while (++j<5);
+	    }
+	    System.out.println(h + "," + i + "," + j);
+	}}

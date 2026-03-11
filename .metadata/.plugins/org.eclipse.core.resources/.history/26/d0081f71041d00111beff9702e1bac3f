@@ -1,0 +1,4 @@
+
+public enum STATUS {
+	AVAILAIBLE, BOOKED, DAMAGED
+}

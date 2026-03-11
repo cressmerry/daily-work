@@ -1,0 +1,15 @@
+package basics;
+
+class Book {
+    String title;
+    boolean available;
+    float price;
+    Book(String title, float price) throws Exception {
+        this.title = title;
+        this.available = true;
+        if(price<0)
+        	throw new Exception("Price cannot be negative");
+        this.price = price;
+    }
+}
+

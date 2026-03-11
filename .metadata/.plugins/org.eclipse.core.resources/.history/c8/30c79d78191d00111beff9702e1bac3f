@@ -1,0 +1,5 @@
+package ems;
+
+public abstract class Employee {
+	public abstract void getHistory();
+}

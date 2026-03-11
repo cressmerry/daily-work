@@ -1,0 +1,23 @@
+package basics;
+
+public class GreatThree {
+
+	public static void main(String[] args) {
+		System.out.println(findLargest(0, 1, 2));
+	}
+
+	static int  findLargest(int number1, int number2, int number3) {
+		if (number1 > number2) {
+			if(number1>number3) {
+				return number1;
+			}
+			else return number3;
+		}
+		else {
+			if(number2>number3) {
+				return number1;
+			}
+			else return number3;
+		}
+	}
+}

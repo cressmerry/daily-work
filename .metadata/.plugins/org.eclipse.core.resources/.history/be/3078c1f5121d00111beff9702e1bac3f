@@ -1,0 +1,19 @@
+package day2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PetClinic {
+
+	public static void main(String[] args) {
+		Dog dog0 = new Dog("Husky");
+		Pet dog1 = new Dog("German Shepherd");		
+		Cat cat0 = new Cat();
+		List<Pet> pets = new ArrayList<>();
+		for(Pet pet : pets) {
+			
+			
+		}
+	}
+
+}

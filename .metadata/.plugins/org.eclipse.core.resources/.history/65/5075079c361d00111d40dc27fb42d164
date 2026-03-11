@@ -1,0 +1,8 @@
+class Book {
+    String title;
+    STATUS status;
+    Book(String title, STATUS status) {
+        this.title = title;
+        this.status = status;
+    }
+}

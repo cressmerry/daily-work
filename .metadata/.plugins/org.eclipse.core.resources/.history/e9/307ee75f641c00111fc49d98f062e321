@@ -1,0 +1,13 @@
+package basics;
+
+public class ListDemo {
+	public static void main(String args[]) {
+		List <String> = new ArrayList<>();
+		list.add("Book1");
+		list.add("Book2");
+		list.add("Book3");
+		System.out.println(list.size);
+		list.remove(3);
+		System.out.println("After removal "+ list.size);
+	}
+}

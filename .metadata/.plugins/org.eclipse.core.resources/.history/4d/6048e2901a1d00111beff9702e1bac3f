@@ -1,0 +1,12 @@
+package ems;
+
+public class HourlyEmployee extends Employee {
+	
+	public void hire() {
+		
+	}
+	public String getCurrent() {
+		
+	}
+	public
+}

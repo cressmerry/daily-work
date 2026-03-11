@@ -1,0 +1,15 @@
+package basics;
+
+public class Car {
+	String model;
+	String color;
+	float price;
+	String engine;
+	String fuelType;
+	String number;
+	boolean insured;
+	String transmission;
+	String design;
+	float mileage;
+	String brand;
+}

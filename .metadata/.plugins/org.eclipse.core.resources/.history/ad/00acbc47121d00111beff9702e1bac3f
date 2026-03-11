@@ -1,0 +1,11 @@
+package day2;
+
+public class Cat {
+	public void meow() {
+		System.out.println("Cat is meowing");
+	}
+	@Override
+	public void play() {
+		System.out.println("Playing with Cat");
+	}
+}

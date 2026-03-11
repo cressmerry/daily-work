@@ -1,0 +1,11 @@
+package basics;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+		int age;
+		System.out.println("Age: "+ age);
+		System.out.println("Hello World");
+	}
+
+}

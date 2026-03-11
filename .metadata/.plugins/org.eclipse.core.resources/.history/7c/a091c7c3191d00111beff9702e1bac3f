@@ -1,0 +1,13 @@
+package ems;
+
+public abstract class Employee {
+	private boolean isEmployed;
+	public void hire() {
+		this.isEmployed = true;
+	}
+	public void terminate() {
+		this.isEmployed = false;
+	}
+	public abstract void getHistory();
+	public abstract void getCurrent();
+}	

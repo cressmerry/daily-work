@@ -1,0 +1,25 @@
+package basics;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+//		int age = 19;
+//		System.out.println("Age: "+ age);
+//		System.out.println("Hello World");
+//		System.out.println(isEven(age));
+		printStars(5);
+	}
+	
+	static boolean isEven(int num) {
+		return num%2==0;
+	}
+	
+	static void printStars(int n) {
+		for (int i =0; i< n;i++) {
+			for(int j=0; j<n-i;j++)
+				System.out.print('*');
+			System.out.println();
+		}
+	}
+	
+}

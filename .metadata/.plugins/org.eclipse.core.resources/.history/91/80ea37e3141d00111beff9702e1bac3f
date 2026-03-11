@@ -1,0 +1,14 @@
+package day2;
+
+public class Cat implements Pet {
+	public Cat(String name) {
+		this.name = name;
+	}
+	public void meow() {
+		System.out.println("Cat is meowing");
+	}
+	@Override
+	public void play() {
+		System.out.println("Playing with Cat");
+	}
+}

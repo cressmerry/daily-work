@@ -1,0 +1,22 @@
+package basics;
+
+import java.util.Date;
+import java.util.List;
+
+public class Car {
+	private String model;
+	private String color;
+	private float price;
+	private String engine;
+	private String fuelType;
+	private String number;
+	private boolean insured;
+	private String transmission;
+	private String design;
+	private float mileage;
+	private String brand;
+	boolean ev;
+	Date manufacturingDate;
+	List<Wheel> wheels;
+	
+}

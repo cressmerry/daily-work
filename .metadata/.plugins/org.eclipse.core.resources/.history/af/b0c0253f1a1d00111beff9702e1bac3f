@@ -1,0 +1,22 @@
+package ems;
+
+import java.util.Date;
+
+public abstract class Employee {
+	private boolean isEmployed;
+	private Date dateOfJoining;
+	private String position;
+	
+	public void hire() {
+		this.isEmployed = true;
+	}
+	public void terminate() {
+		this.isEmployed = false;
+	}
+	public void getHistory() {
+		System.out.println("Date of joining was " + dateOfJoining);
+	}
+	public float getCurrent() {
+		return salary;
+	}
+}	
