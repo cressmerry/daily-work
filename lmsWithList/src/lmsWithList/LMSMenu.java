@@ -16,14 +16,6 @@ public class LMSMenu {
 		System.out.println(options);
 	}
 
-	int getChoice() {
-		try {
-			int choice = sc.nextInt();
-			return choice;
-		} catch (Exception ex) {
-		}
-		return -1;
-	}
 
 	void start() {
 		int choice;
@@ -31,9 +23,9 @@ public class LMSMenu {
 			displayMenu();
 			choice = -1;
 			System.out.print("\nEnter choice: ");
-			choice = getChoice();
-			sc.nextLine();
 			try {
+			choice = sc.nextInt();
+			sc.nextLine();
 				switch (choice) {
 				case 1:
 					handleAddition();
@@ -57,6 +49,7 @@ public class LMSMenu {
 				}
 			} catch (Exception ex) {
 				System.out.println(ex);
+				sc.nextLine();
 			}
 		}
 

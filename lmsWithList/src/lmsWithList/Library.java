@@ -52,4 +52,13 @@ class Library {
 		System.out.println("============================================");
 	}
 
+	void displayAllBooks() {
+
+		System.out.println("BOOKS AVAILIABLE");
+		System.out.println("============================================");
+		for (Book b : books)
+			System.out.println(b + "\n\n");
+		System.out.println("============================================");
+	}
+
 }
