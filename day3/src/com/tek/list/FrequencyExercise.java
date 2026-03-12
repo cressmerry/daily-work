@@ -13,6 +13,7 @@ public class FrequencyExercise {
 			if(i==target)
 				frequency++;
 		}
+		
 		System.out.println("Frequency of " + target + ": " + frequency);
 	}
 
