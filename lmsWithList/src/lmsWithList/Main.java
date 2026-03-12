@@ -5,5 +5,5 @@ public class Main {
 		Library library = new Library();
 		LMSMenu menu = new LMSMenu(library);
 		menu.start();
-		}
+	}
 }

@@ -16,41 +16,47 @@ public class LMSMenu {
 		System.out.println(options);
 	}
 
+	int getChoice() {
+		try {
+			int choice = sc.nextInt();
+			return choice;
+		} catch (Exception ex) {
+		}
+		return -1;
+	}
+
 	void start() {
 		int choice;
 		while (true) {
 			displayMenu();
 			choice = -1;
 			System.out.print("\nEnter choice: ");
-			try {
-				choice = sc.nextInt();
-			} catch (Exception ex) {
-			}
+			choice = getChoice();
 			sc.nextLine();
-			switch (choice) {
-			case 1:
-				try {
+			try {
+				switch (choice) {
+				case 1:
 					handleAddition();
-				} catch (Exception ex) {
-					System.out.println(ex);
+					break;
+				case 2:
+					handleRemoval();
+					break;
+				case 3:
+					handleReservation();
+					break;
+				case 4:
+					library.displayBooks();
+					break;
+				case 0:
+					System.out.println("Exiting...");
+					sc.close();
+					System.exit(0);
+					break;
+				default:
+					System.out.println("Invalid Choice!!!");
 				}
-				break;
-			case 2:
-				handleRemoval();
-				break;
-			case 3:
-				handleReservation();
-				break;
-			case 4:
-				library.displayBooks();
-				break;
-			case 0:
-				System.out.println("Exiting...");
-				sc.close();
-				System.exit(0);
-				break;
-			default:
-				System.out.println("Invalid Choice!!!");
+			} catch (Exception ex) {
+				System.out.println(ex);
 			}
 		}
 

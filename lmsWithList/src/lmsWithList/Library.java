@@ -33,22 +33,22 @@ class Library {
 		return books;
 	}
 
-	Book remove(String id) throws Exception{
-		for(Book book : books) {
-			if(book.getId().toLowerCase().equals(id.toLowerCase())) {
+	Book remove(String id) throws Exception {
+		for (Book book : books) {
+			if (book.getId().toLowerCase().equals(id.toLowerCase())) {
 				books.remove(book);
 				return book;
 			}
 		}
 		throw new Exception("No book was availaible for the id: " + id);
 	}
-	
+
 	void displayBooks() {
 		System.out.println("BOOKS AVAILIABLE");
 		System.out.println("============================================");
 		for (Book b : books)
 			if (b.getStatus() == STATUS.AVAILABLE)
-				System.out.println(b+"\n\n");
+				System.out.println(b + "\n\n");
 		System.out.println("============================================");
 	}
 
