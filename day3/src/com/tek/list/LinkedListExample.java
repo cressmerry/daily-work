@@ -9,6 +9,7 @@ public class LinkedListExample {
 		defensiveDowncating(cities);
 		System.out.println(cities.contains("Delhi"));
 		System.out.println(cities.remove("Delhi"));
+		System.out.print(cities.set(0, "Chennai"));
 		System.out.println(cities);
 
 	}
