@@ -1,0 +1,14 @@
+package lms;
+
+
+public class Main {
+	
+	public static void main() {
+		Library lib = new Library();
+		lib.addBook("Book 1", 49);
+		lib.addBook("Book 2", -1);
+		lib.displayBooks();
+	}
+}
+
+

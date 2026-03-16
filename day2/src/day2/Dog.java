@@ -1,0 +1,24 @@
+package day2;
+
+public class Dog extends Animal implements Pet {
+	private String breed;
+	
+	public Dog(String breed, String name) {
+		this.breed = breed;
+		this.name = name;
+	}
+	public String getBreed() {
+		return breed;
+	}
+	@Override
+	public void play() {
+		System.out.println("Playing with "+ getName());
+	}
+	
+	public void bark() {
+		System.out.println("Dog is barking");
+	}
+	public void sound() {
+		System.out.println("Dog makes sound");
+	}
+}
