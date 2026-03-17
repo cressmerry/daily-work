@@ -18,9 +18,7 @@ public class LMSApplication {
 			switch (choice) {
 
 			case 1:
-
-				handleAddition(sc, library);
-
+				handleAddition(library);
 				break;
 
 			case 2:
@@ -94,7 +92,7 @@ public class LMSApplication {
 		}
 	}
 
-	private static void handleAddition(Scanner sc, LibraryService library) {
+	private static void handleAddition(LibraryService library) {
 		System.out.print("ID: ");
 		int id = sc.nextInt();
 		sc.nextLine();
