@@ -1,15 +1,16 @@
+package day6;
 public class Book {
 
 	private int id;
 	private String title;
 	private String author;
-	private STATUS status;
+	private boolean available;
 
-	public Book(int id, String title, String author, STATUS status) {
+	public Book(int id, String title, String author, boolean available) {
 		this.id = id;
 		this.title = title;
 		this.author = author;
-		this.status = status;
+		this.available = available;
 	}
 
 	public int getId() {
@@ -24,21 +25,21 @@ public class Book {
 		return author;
 	}
 
-	public STATUS getStatus() {
-		return status;
+	public boolean isAvailable() {
+		return available;
 	}
 
 	public void borrowBook() {
-		status = STATUS.BOOKED;
+		available = false;
 	}
 
 	public void returnBook() {
-		status = STATUS.AVAILABLE;
+		available = true;
 	}
 
 	@Override
 	public String toString() {
-		return id + "," + title + "," + author + "," + status;
+		return id + "," + title + "," + author + "," + available;
 	}
 
 }
