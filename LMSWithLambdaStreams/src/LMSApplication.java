@@ -103,7 +103,7 @@ public class LMSApplication {
 		System.out.print("Author: ");
 		String author = sc.nextLine();
 
-		library.addBook(new Book(id, title, author, true));
+		library.addBook(new Book(id, title, author, STATUS.AVAILABLE));
 	}
 
 	private static int getUserChoice(int range) {

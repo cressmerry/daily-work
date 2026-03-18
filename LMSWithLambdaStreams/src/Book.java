@@ -28,6 +28,9 @@ public class Book {
 		return status;
 	}
 
+	public boolean isAvailable() {
+		return STATUS.AVAILABLE==status;
+	}
 	public void borrowBook() {
 		status = STATUS.BOOKED;
 	}
