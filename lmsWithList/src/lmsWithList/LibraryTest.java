@@ -186,14 +186,14 @@ class LibraryTest {
 	@Test
 	void testAddWithBlankSpaceAuthor() {
 		assertThrows(IllegalArgumentException.class, () -> library.add("1234", "Learn Java", 1234.0F, "   "));
-		assertThrows(IllegalArgumentException.class, () -> library.add(new Book("1234", "Learn Java", 1234.0F, "    ")));
+		assertThrows(IllegalArgumentException.class,
+				() -> library.add(new Book("1234", "Learn Java", 1234.0F, "    ")));
 	}
 
 	@Test
 	void testAddWithEmptyStringId() {
 		assertThrows(IllegalArgumentException.class, () -> library.add("", "Learn Go", 1234.0F, "Jane Doe"));
-		assertThrows(IllegalArgumentException.class,
-				() -> library.add(new Book("", "Learn Go", 1234.0F, "Jane Doe")));
+		assertThrows(IllegalArgumentException.class, () -> library.add(new Book("", "Learn Go", 1234.0F, "Jane Doe")));
 	}
 
 	@Test
@@ -207,21 +207,21 @@ class LibraryTest {
 		assertThrows(IllegalArgumentException.class, () -> library.add("1234", "Learn Java", 1234.0F, ""));
 		assertThrows(IllegalArgumentException.class, () -> library.add(new Book("1234", "Learn Java", 1234.0F, "")));
 	}
-	
 
 	@Test
 	void testAddWithNullId() {
 		assertThrows(IllegalArgumentException.class, () -> library.add(null, "Learn Go", 1234.0F, "Jane Doe"));
-		assertThrows(IllegalArgumentException.class, () -> library.add(new Book(null, "Learn Go", 1234.0F, "Jane Doe")));
+		assertThrows(IllegalArgumentException.class,
+				() -> library.add(new Book(null, "Learn Go", 1234.0F, "Jane Doe")));
 	}
-	
-	@Test 
+
+	@Test
 	void testAddWithNullTitle() {
 		assertThrows(IllegalArgumentException.class, () -> library.add("1234", null, 1234.0F, "Jane Doe"));
 		assertThrows(IllegalArgumentException.class, () -> library.add(new Book("1234", null, 1234.0F, "Jane Doe")));
 	}
-	
-	@Test 
+
+	@Test
 	void testAddWithNullAuthor() {
 		assertThrows(IllegalArgumentException.class, () -> library.add("1234", "Learn Java", 1234.0F, null));
 		assertThrows(IllegalArgumentException.class, () -> library.add(new Book("1234", "Learn Java", 1234.0F, null)));
@@ -230,14 +230,15 @@ class LibraryTest {
 	@Test
 	void testAddWithNegativePrice() {
 		assertThrows(IllegalArgumentException.class, () -> library.add("1234", "Learn Java", -1234.0F, "John Doe"));
-		assertThrows(IllegalArgumentException.class, () -> library.add(new Book("1234", "Learn Java", -1234.0F, "John Doe")));
+		assertThrows(IllegalArgumentException.class,
+				() -> library.add(new Book("1234", "Learn Java", -1234.0F, "John Doe")));
 	}
-	
-	//Test displayAllBooks method
-	
+
+	// Test displayAllBooks method
+
 	@Test
 	void testDisplayAllBooks() {
-		    final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+		final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outputStreamCaptor));
 		Book book = new Book("1234", "Learn Java", 1234.0F, "John Doe");
 		library.add(book);
@@ -253,7 +254,7 @@ class LibraryTest {
 
 	@Test
 	void testDisplayBooks() {
-		    final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+		final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(outputStreamCaptor));
 		Book book = new Book("1234", "Learn Java", 1234.0F, "John Doe");
 		library.add(book);
@@ -262,5 +263,4 @@ class LibraryTest {
 		System.setOut(System.out);
 	}
 
-	
 }
