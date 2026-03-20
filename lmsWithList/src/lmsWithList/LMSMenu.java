@@ -49,6 +49,7 @@ public class LMSMenu {
 				}
 			} catch (Exception ex) {
 				System.out.println(ex);
+				ex.printStackTrace();
 				sc.nextLine();
 			}
 		}

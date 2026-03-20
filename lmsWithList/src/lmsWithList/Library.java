@@ -1,11 +1,12 @@
 package lmsWithList;
 
 import java.util.ArrayList;
+import static lmsWithList.ValidationUtils.*;
 import java.util.List;
 
 class Library {
 
-	List<Book> books = new ArrayList<>();
+	private List<Book> books = new ArrayList<>();
 
 	void add(String id, String title, float price, String author) {
 		Book book = new Book(id, title, price, author);
@@ -14,15 +15,16 @@ class Library {
 
 	void add(Book book) {
 		books.add(book);
+
 	}
 
 	void reserve(String title) throws Exception {
-		if (title == null || "".equals(title.trim())) {
+		if (!validateStringValue(title)) {
 			throw new IllegalArgumentException();
 		}
 
 		for (Book book : books) {
-			if (book.title.equals(title) && book.getStatus() == STATUS.AVAILABLE) {
+			if (book.getTitle().equals(title) && book.getStatus() == STATUS.AVAILABLE) {
 				book.setStatus(STATUS.BOOKED);
 				System.out.println("Borrowed: " + title);
 				return;
@@ -32,20 +34,20 @@ class Library {
 	}
 
 	List<Book> find(String title) {
-		if (title == null || "".equals(title.trim())) {
+		if (!validateStringValue(title)) {
 			throw new IllegalArgumentException();
 		}
-		List<Book> books = new ArrayList<>();
+		List<Book> bookFindings = new ArrayList<>();
 		for (Book book : books) {
-			if (book.title.toLowerCase().contains(title.toLowerCase())) {
-				books.add(book);
+			if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
+				bookFindings.add(book);
 			}
 		}
-		return books;
+		return bookFindings;
 	}
 
 	Book remove(String id) throws Exception {
-		if ("".equals(id.trim()) || id == null)
+		if (!validateStringValue(id))
 			throw new IllegalArgumentException();
 		for (Book book : books) {
 			if (book.getId().toLowerCase().equals(id.toLowerCase())) {
@@ -59,9 +61,9 @@ class Library {
 	void displayBooks() {
 		System.out.println("BOOKS AVAILIABLE");
 		System.out.println("============================================");
-		for (Book b : books)
-			if (b.getStatus() == STATUS.AVAILABLE)
-				System.out.println(b + "\n\n");
+		for (Book book : books)
+			if (book.getStatus() == STATUS.AVAILABLE)
+				System.out.println(book + "\n\n");
 		System.out.println("============================================");
 	}
 
@@ -69,8 +71,8 @@ class Library {
 
 		System.out.println("BOOKS AVAILIABLE");
 		System.out.println("============================================");
-		for (Book b : books)
-			System.out.println(b + "\n\n");
+		for (Book book : books)
+			System.out.println(book + "\n\n");
 		System.out.println("============================================");
 	}
 

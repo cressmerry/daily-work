@@ -1,17 +1,22 @@
 package lmsWithList;
 
+import static lmsWithList.ValidationUtils.*;
+
 class Book {
-	String id;
-	String title;
-	float price;
-	String author;
+	private String id;
+	private String title;
+	private float price;
+	private String author;
 
 	public Book(String id, String title, float price, String author) {
+		if (!validateStringValue(title) || !validateStringValue(author) || !validateStringValue(id))
+			throw new IllegalArgumentException("Invalid Argument");
 		this.id = id;
 		this.title = title;
-		this.price = price;
+		setPrice(price);
+		;
 		this.author = author;
-		this.status = STATUS.AVAILABLE;
+		setStatus(STATUS.AVAILABLE);
 	}
 
 	private STATUS status;
@@ -29,6 +34,8 @@ class Book {
 	}
 
 	public void setPrice(float price) {
+		if(!validateNumericInput(price))
+			throw new IllegalArgumentException();
 		this.price = price;
 	}
 
