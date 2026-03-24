@@ -1,34 +1,57 @@
 package com.tek.log.analyzer;
 
 import java.io.File;
+
+import java.util.logging.Logger;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LogAnalyzer {
+import com.tek.log.analyzer.exception.LogParseException;
+import com.tek.log.analyzer.model.LOG_TYPE;
+import com.tek.log.analyzer.model.LogEntry;
 
-	public static void main(String[] args) throws FileNotFoundException {
+public class LogAnalyzer {
+	private static final Logger logger = Logger.getLogger(LogAnalyzer.class.getName());
+	File logFile;
+
+	public LogAnalyzer(String filepath) throws IOException {
+		this(new File(filepath));
+
+	}
+
+	public LogAnalyzer(File file) throws IOException {
+		if (!file.exists())
+			throw new FileNotFoundException(file + " file not found");
+		logFile = file;
+	}
+
+	public Map<LOG_TYPE, Integer> analyze() throws IOException {
+		return analyze(true);
+	}
+
+	public Map<LOG_TYPE, Integer> analyze(boolean skipBadEntries) throws IOException {
 		Map<LOG_TYPE, Integer> logCounts = new HashMap<>();
-		File logFile = new File("C:\\Workspace\\log.analyzer\\src\\main\\resources\\system.log");
-		if (!logFile.exists()) {
-			System.out.println("Hello World");
-			throw new FileNotFoundException("system.log file not found");
-		}
-		try {
-			List<String> lines = Files.readAllLines(logFile.toPath(), StandardCharsets.UTF_8);
-			for (String entryString : lines) {
+		List<String> lines;
+		lines = Files.readAllLines(logFile.toPath(), StandardCharsets.UTF_8);
+		int lineNumber = 0;
+		for (String entryString : lines) {
+			lineNumber++;
+			try {
 				LogEntry entry = parseEntry(entryString);
-				if (!logCounts.containsKey(entry.getType()))
-					logCounts.put(entry.getType(), (Integer) 0);
-				logCounts.put(entry.getType(), logCounts.get(entry.getType()) + 1);
+				logCounts.put(entry.getType(), logCounts.getOrDefault(entry.getType(), 0) + 1);
+
+			} catch (LogParseException lpex) {
+				logger.info(
+						"Skipped Entry At Line Number: " + lineNumber + " due to the problem: " + lpex.getMessage());
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		System.out.println(logCounts);
+
+		return logCounts;
 	}
 
 	public static LogEntry parseEntry(String entry) throws LogParseException {
@@ -38,8 +61,8 @@ public class LogAnalyzer {
 		if (trimmedEntry.isEmpty())
 			throw new LogParseException("Empty log line");
 		int colonIndex = trimmedEntry.indexOf(':');
-		if (colonIndex <= 0) {
-			throw new LogParseException("Entry must be in format: 'TYPE: message'");
+		if (colonIndex < 0) {
+			throw new LogParseException("Log Format is TYPE : Message");
 		}
 		String typeString = trimmedEntry.substring(0, colonIndex).trim();
 		String messageString = trimmedEntry.substring(colonIndex + 1).trim();

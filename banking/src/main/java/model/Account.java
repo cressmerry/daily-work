@@ -8,6 +8,9 @@ public class Account {
 	private String holderName;
 	private double balance;
 
+	Account(){
+		
+	}
 	public Account(int accountNumber, String holderName, double balance) {
 		this.accountNumber = accountNumber;
 		this.holderName = holderName;
@@ -39,4 +42,5 @@ public class Account {
 			throw new BankingException("Insufficient balance");
 		balance -= amount;
 	}
+	
 }

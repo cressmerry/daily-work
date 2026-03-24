@@ -37,7 +37,7 @@ public class MainApp {
 
 				case 4:
 					accountNumber = getAccountNumber();
-					System.out.println(bank.getAccount(accountNumber).getBalance());
+					System.out.println(bank. getAccount(accountNumber).getBalance());
 					break;
 
 				case 5:

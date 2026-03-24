@@ -1,9 +1,9 @@
-package com.tek.log.analyzer;
+package com.tek.log.analyzer.model;
 
 public enum LOG_TYPE {
 	INFO, WARNING, ERROR;
 
-	static boolean validateLogType(String typeString) {
+	public static boolean validateLogType(String typeString) {
 		try {
 			LOG_TYPE.valueOf(typeString);
 			return true;

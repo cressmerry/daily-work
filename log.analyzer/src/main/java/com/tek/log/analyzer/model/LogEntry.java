@@ -1,4 +1,4 @@
-package com.tek.log.analyzer;
+package com.tek.log.analyzer.model;
 
 public class LogEntry {
 	private final LOG_TYPE type;
