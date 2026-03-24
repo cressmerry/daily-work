@@ -1,4 +1,4 @@
-package log.analyzer;
+package com.tek.log.analyzer;
 
 public enum LOG_TYPE {
 	INFO, WARNING, ERROR;

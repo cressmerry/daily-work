@@ -1,4 +1,4 @@
-package log.analyzer;
+package com.tek.log.analyzer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
