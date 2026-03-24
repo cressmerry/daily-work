@@ -1,0 +1,5 @@
+com\tek\log\analyzer\main\MainApp.class
+com\tek\log\analyzer\model\LogEntry.class
+com\tek\log\analyzer\exception\LogParseException.class
+com\tek\log\analyzer\LogAnalyzer.class
+com\tek\log\analyzer\model\LOG_TYPE.class
