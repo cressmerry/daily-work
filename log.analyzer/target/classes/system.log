@@ -1,0 +1,18 @@
+INFO: Start
+WARNING: Low memory
+ERROR: Disk full
+INFO: User login
+INFO: Configuration loaded
+WARNING: High CPU usage
+ERROR: Timeout while connecting to service
+INFO: Scheduled job started
+WARNING: Deprecated API used
+INFO: Cache cleared
+ERROR: Failed to write file
+WARNING: Disk nearing capacity
+INFO: Connection re-established
+ERROR: Authentication failed
+WARNING: Unusual traffic detected
+INFO: Background task completed
+ERROR: Resource allocation failed
+INFO: Shutdown initiated
