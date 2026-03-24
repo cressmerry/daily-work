@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="log.analyzer.LogAnalyzerTest" time="0.298" tests="12" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="log.analyzer.LogEntryTest" time="0.018" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -57,22 +57,6 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testParseEntryWithInvalidType" classname="log.analyzer.LogAnalyzerTest" time="0.131"/>
-  <testcase name="testAnalyzeForEmptyFile" classname="log.analyzer.LogAnalyzerTest" time="0.01"/>
-  <testcase name="testParseEntryForMissingMessage" classname="log.analyzer.LogAnalyzerTest" time="0.005"/>
-  <testcase name="testParseEntryForNull" classname="log.analyzer.LogAnalyzerTest" time="0.006"/>
-  <testcase name="testParseEntrySuccessfullUppercasingOfLowercasedType" classname="log.analyzer.LogAnalyzerTest" time="0.004"/>
-  <testcase name="testParseEntryWithoutAType" classname="log.analyzer.LogAnalyzerTest" time="0.003"/>
-  <testcase name="testAnalyzeWhenSkippingBadLines" classname="log.analyzer.LogAnalyzerTest" time="0.033">
-    <system-err><![CDATA[Mar 24, 2026 4:41:30 PM com.tek.log.analyzer.LogAnalyzer analyze
-INFO: Skipped Entry At Line Number: 4 due to the problem: Log Format is TYPE : Message
-Mar 24, 2026 4:41:30 PM com.tek.log.analyzer.LogAnalyzer analyze
-INFO: Skipped Entry At Line Number: 5 due to the problem: Missing log message
-]]></system-err>
-  </testcase>
-  <testcase name="testParseEntryForBlankSpace" classname="log.analyzer.LogAnalyzerTest" time="0.006"/>
-  <testcase name="testConstructorWithNonExistentFilepath" classname="log.analyzer.LogAnalyzerTest" time="0.006"/>
-  <testcase name="testParseEntryForValidFormat" classname="log.analyzer.LogAnalyzerTest" time="0.003"/>
-  <testcase name="testConstructorWithNonExistentFileObject" classname="log.analyzer.LogAnalyzerTest" time="0.004"/>
-  <testcase name="testParseEntryForMissingColon" classname="log.analyzer.LogAnalyzerTest" time="0.002"/>
+  <testcase name="testSuccessfullValidateLogType" classname="log.analyzer.LogEntryTest" time="0.001"/>
+  <testcase name="testUnsuccessfullValidateLogType" classname="log.analyzer.LogEntryTest" time="0.003"/>
 </testsuite>

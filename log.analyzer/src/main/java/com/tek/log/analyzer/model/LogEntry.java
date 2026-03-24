@@ -17,8 +17,5 @@ public class LogEntry {
 		return message;
 	}
 
-	@Override
-	public String toString() {
-		return type + ": " + message;
-	}
+
 }
