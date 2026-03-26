@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="index.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <h2>Todo App</h2>
+      <div class="todo-input">
+        <div class="task-input">
+          <input
+            class="task-title-input"
+            type="text"
+            placeholder="Enter task..."
+          />
+          <div class="task-duration">
+            <input
+              class="task-duration-input-HH task-duration-input"
+              type="number"
+              placeholder="HH"
+            />
+            <input
+              class="task-duration-input-MM task-duration-input"
+              type="number"
+              placeholder="MM"
+            />
+            <input
+              class="task-duration-input-SS task-duration-input"
+              type="number"
+              placeholder="SS"
+            />
+          </div>
+        </div>
+        <button class="add-button" onclick="addTodo()">Add</button>
+      </div>
+      <ul id="todo-list"></ul>
+    </div>
+  </body>
+</html>
