@@ -16,25 +16,11 @@
             type="text"
             placeholder="Enter task..."
             onkeyup="validateInput()"
-            />
-          <div class="task-duration">
-            <input
-              class="task-duration-input-HH task-duration-input"
-              type="number"
-              placeholder="HH"
-            />
-            <input
-              class="task-duration-input-MM task-duration-input"
-              type="number"
-              placeholder="MM"
-            />
-            <input
-              class="task-duration-input-SS task-duration-input"
-              type="number"
-              placeholder="SS"
-            />
-          </div>
-          <label class="urgency">Urgent<input class="urgency-input" type="checkbox" ></label>
+          />
+          <input class="task-duration-input" type="datetime-local" />
+          <label class="urgency"
+            >Urgent<input class="urgency-input" type="checkbox"
+          /></label>
         </div>
         <div class="error-div"></div>
         <button class="add-button" onclick="addTodo()">Add</button>

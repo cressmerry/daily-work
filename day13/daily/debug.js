@@ -62,10 +62,38 @@
 
 // console.log(diff(a, b));
 
-function validate(obj, requiredKeys) {
-  return requiredKeys.every((key) => key in obj);
-}
+// function validate(obj, requiredKeys) {
+//   return requiredKeys.every((key) => key in obj);
+// }
 
-const data = { name: "John", age: 25 };
-console.log(validate(data, ["name", "age", "email"]));
+// const data = { name: "John", age: 25 };
+// console.log(validate(data, ["name", "age", "email"]));
 
+// arr = [1,2,3];
+// console.log(arr[3]);
+
+// for(let i = 0; i<3;i++){
+//   setTimeout(()=>console.log(i), 100);
+// }
+
+// console.log(["1", "2", "3"].map(Number));
+
+// console.log((0.2 + 0.1) === 0.3);
+
+// let a = {x : 2};
+// b = a;
+// b.x = 3;
+// console.log(b.x);
+
+// console.log(1);
+// setTimeout(()=>console.log(2), 0);
+// console.log(3);
+
+// const arr = [1,3];
+// arr = [4,5]
+
+// console.log(
+//   [1, 2, 3].filter((n) => {
+//     return n > 1;
+//   }),
+// );

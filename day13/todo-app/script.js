@@ -2,10 +2,10 @@ let errorDiv;
 let sortInfo = { sortOrder: 1, sorted: false };
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
-window.onload = function () {
+window.addEventListener("DOMContentLoaded", function () {
   errorDiv = document.querySelector(".error-div");
   renderTodos();
-};
+});
 
 function saveTodos() {
   localStorage.setItem("todos", JSON.stringify(todos));
@@ -20,8 +20,8 @@ function getTodosForRender() {
   });
 }
 
-function validateInput() {
-  const value = event.target.value;
+function validateInput(el) {
+  const value = el.value;
   if (value.trim() !== "") {
     errorDiv.innerText = "";
     errorDiv.style.display = "none";
@@ -32,38 +32,40 @@ function validateInput() {
 }
 
 function addTodo() {
-  const minuteInput = document.querySelector(".task-duration-input-MM");
-  const hourInput = document.querySelector(".task-duration-input-HH");
-  const secondInput = document.querySelector(".task-duration-input-SS");
+  const dtInput = document.querySelector(".task-duration-input");
   const textInput = document.querySelector(".task-title-input");
   const urgencyInput = document.querySelector(".urgency-input");
   const text = textInput.value.trim();
   const isUrgent = !!(urgencyInput && urgencyInput.checked);
-  if (text === "") return;
-  const duration = getDurationInSeconds();
-  if (!duration) return;
 
-  todos.push({ text, duration, isUrgent, completed: false });
+  if (text === "") {
+    errorDiv.innerText = "Invalid Title";
+    errorDiv.style.display = "initial";
+    return;
+  }
+
+  const targetISO = getTargetISOFromInput();
+  if (!targetISO) {
+    errorDiv.innerText = "Invalid or past datetime";
+    errorDiv.style.display = "initial";
+    return;
+  }
+
+  todos.push({ text, target: targetISO, isUrgent, completed: false });
   textInput.value = "";
-  hourInput.value = "";
-  minuteInput.value = "";
-  secondInput.value = "";
+  if (dtInput) dtInput.value = "";
   saveTodos();
   renderTodos();
 }
 
-function getDurationInSeconds() {
-  const minuteInput = document.querySelector(".task-duration-input-MM");
-  const hourInput = document.querySelector(".task-duration-input-HH");
-  const secondInput = document.querySelector(".task-duration-input-SS");
-  const hours = parseInt(hourInput.value || "0", 10);
-  const minutes = parseInt(minuteInput.value || "0", 10);
-  const seconds = parseInt(secondInput.value || "0", 10);
-  const total =
-    (Number.isFinite(hours) ? hours : 0) * 3600 +
-    (Number.isFinite(minutes) ? minutes : 0) * 60 +
-    (Number.isFinite(seconds) ? seconds : 0);
-  return total > 0 ? total : 0;
+function getTargetISOFromInput() {
+  const dtInput = document.querySelector(".task-duration-input");
+  if (!dtInput || !dtInput.value) return null;
+  const target = new Date(dtInput.value);
+  if (isNaN(target)) return null;
+  const now = new Date();
+  if (target.getTime() <= now.getTime()) return null;
+  return target.toISOString();
 }
 
 function deleteTodo(index) {
@@ -72,16 +74,21 @@ function deleteTodo(index) {
   renderTodos();
 }
 
-function formatDuration(seconds) {
-  if (!Number.isFinite(seconds) || seconds < 0) return "0s";
-  const hrs = Math.floor(seconds / 3600);
-  const mins = Math.floor((seconds % 3600) / 60);
-  const secs = seconds % 60;
+function formatRemainingOrISO(targetISO) {
+  if (!targetISO) return "No time set";
+  const target = new Date(targetISO);
+  if (isNaN(target)) return "Invalid time";
+  const now = new Date();
+  const diff = Math.floor((target - now) / 1000);
+  if (diff <= 0) return "Due";
+  const hrs = Math.floor(diff / 3600);
+  const mins = Math.floor((diff % 3600) / 60);
+  const secs = diff % 60;
   const parts = [];
   if (hrs) parts.push(`${hrs}h`);
   if (mins) parts.push(`${mins}m`);
-  if (secs || parts.length === 0) parts.push(`${secs}s`);
-  return parts.join(" ");
+  if (secs && parts.length === 0) parts.push(`${secs}s`);
+  return `in ${parts.join(" ")}`; // e.g. "in 1h 20m"
 }
 
 function toggleComplete(index) {
@@ -99,19 +106,35 @@ function renderTodos() {
   const list = document.getElementById("todo-list");
   list.innerHTML = "";
   let finalTodo = getTodosForRender();
-  finalTodo.forEach((todo, index) => {
+  finalTodo.forEach((todo, renderIndex) => {
+    const realIndex = todos.indexOf(todo);
     const li = document.createElement("li");
     if (todo.completed) li.classList.add("completed");
     if (todo.isUrgent) li.classList.add("urgent");
 
     li.innerHTML = `
     <span class="task-title-text">${todo.text}</span>
-    <span class="task-duration-text">${formatDuration(todo.duration)}</span>
+    <span class="task-duration-text">${formatRemainingOrISO(todo.target)}</span>
     <div>
-    <button class="complete-button" onclick="toggleComplete(${index})">✔</button>
-    <button class="remove-button"  onclick="deleteTodo(${index})">✖</button>
+      <button class="complete-button" onclick="toggleComplete(${realIndex})">✔</button>
+      <button class="remove-button" onclick="deleteTodo(${realIndex})">✖</button>
     </div>
     `;
     list.appendChild(li);
   });
+  saveTodos();
+}
+
+function formatTargetLocal(targetISO) {
+  if (!targetISO) return "No time set";
+  const target = new Date(targetISO);
+  if (isNaN(target)) return "Invalid time";
+  const opts = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  return target.toLocaleString(undefined, opts);
 }

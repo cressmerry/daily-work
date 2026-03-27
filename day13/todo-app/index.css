@@ -28,17 +28,18 @@ li {
   justify-content: space-between;
   padding: 10px;
 }
-.completed {
-  text-decoration: line-through;
-  color: gray;
-}
-
 .urgent {
   border: 2px solid orangered;
   box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.12);
   padding: 8px;
   border-radius: 8px;
 }
+.completed {
+  text-decoration: line-through;
+  color: gray;
+  border: 2px solid whitesmoke;
+}
+
 button {
   border: none;
   cursor: pointer;
@@ -102,24 +103,17 @@ button {
   border-radius: 0;
 }
 
-.task-duration {
+.task-duration-input {
   display: flex;
-  gap: 0;
   align-items: center;
   border-left: 1px solid #e6e6e6;
    border-right: 1px solid #e6e6e6;
   background: transparent;
-}
-
-.task-duration-input {
-  width: 40px;
-  flex: 0 0 40px;
-  border: none;
   height: 40px;
-  text-align: center;
-  outline: none;
-  background: transparent;
-  padding: 0;
+  border: none;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+
 }
 
 .task-input:focus-within {
