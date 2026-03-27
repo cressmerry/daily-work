@@ -37,7 +37,7 @@ public class MainAppTest {
 	}
 
 	@Test
-	public void testSuccessfullMainExecution() throws Exception {
+	public void testSuccessfullMainWithValidFile() throws Exception {
 		File temp = File.createTempFile("test-log", ".log");
 		temp.deleteOnExit();
 		String content = "INFO: Hello World\nERROR: BAD WORLD";

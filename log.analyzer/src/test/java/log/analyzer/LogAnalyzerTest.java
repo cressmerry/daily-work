@@ -44,14 +44,14 @@ class LogAnalyzerTest {
 	@Test
 	void testConstructorWithNonExistentFilepath() {
 		assertThrows(IOException.class, () -> {
-			LogAnalyzer analyzer = new LogAnalyzer("does-not-exist.log");
+			new LogAnalyzer("does-not-exist.log");
 		});
 	}
 
 	@Test
 	void testConstructorWithNonExistentFileObject() {
 		assertThrows(FileNotFoundException.class, () -> {
-			LogAnalyzer analyzer = new LogAnalyzer(new File(tempDirectory, "does-not-exist.log"));
+			new LogAnalyzer(new File(tempDirectory, "does-not-exist.log"));
 		});
 	}
 

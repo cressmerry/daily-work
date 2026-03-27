@@ -15,7 +15,8 @@
             class="task-title-input"
             type="text"
             placeholder="Enter task..."
-          />
+            onkeyup="validateInput()"
+            />
           <div class="task-duration">
             <input
               class="task-duration-input-HH task-duration-input"
@@ -33,10 +34,12 @@
               placeholder="SS"
             />
           </div>
-          <button class="add-button" onclick="addTodo()">Add</button>
+          <label class="urgency">Urgent<input class="urgency-input" type="checkbox" ></label>
         </div>
-        <label class="urgency">Urgent<input class="urgency-input" type="checkbox" ></label>
+        <div class="error-div"></div>
+        <button class="add-button" onclick="addTodo()">Add</button>
       </div>
+      <button class="sort-button" onclick="toggleSort()">Sort</button>
       <ul id="todo-list"></ul>
     </div>
   </body>

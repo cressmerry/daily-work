@@ -33,6 +33,12 @@ li {
   color: gray;
 }
 
+.urgent {
+  border: 2px solid orangered;
+  box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.12);
+  padding: 8px;
+  border-radius: 8px;
+}
 button {
   border: none;
   cursor: pointer;
@@ -56,7 +62,6 @@ button {
   background-color: blue;
   width: 35px;
 }
-
 
 .add-button {
   text-align: center;
@@ -102,6 +107,7 @@ button {
   gap: 0;
   align-items: center;
   border-left: 1px solid #e6e6e6;
+   border-right: 1px solid #e6e6e6;
   background: transparent;
 }
 
@@ -121,16 +127,31 @@ button {
   border-color: #66a3ff;
 }
 
-.task-title-text{
+.task-title-text {
   width: 100px;
   overflow: hidden;
 }
 
-.task-duration-text{
+.task-duration-text {
   width: 100px;
   overflow: hidden;
 }
 
-.urgency{
+.urgency {
   display: block;
+}
+
+.sort-button{
+  background-color: gainsboro;
+  color: black;
+}
+
+.error-div{
+  display: none;
+  height: 20px;
+  padding: 5px;
+  font-weight: bolder;
+  width: fit-content;
+  background-color: red;
+  color: white;
 }

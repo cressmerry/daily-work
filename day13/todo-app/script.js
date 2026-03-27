@@ -1,10 +1,34 @@
+let errorDiv;
+let sortInfo = { sortOrder: 1, sorted: false };
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
 window.onload = function () {
+  errorDiv = document.querySelector(".error-div");
   renderTodos();
 };
 
 function saveTodos() {
   localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getTodosForRender() {
+  let result = JSON.parse(JSON.stringify(todos));
+  if (!sortInfo.sorted) return result;
+  return result.sort((a, b) => {
+    const order = a.text.localeCompare(b.text);
+    return sortInfo.sortOrder * order;
+  });
+}
+
+function validateInput() {
+  const value = event.target.value;
+  if (value.trim() !== "") {
+    errorDiv.innerText = "";
+    errorDiv.style.display = "none";
+  } else {
+    errorDiv.innerText = "Invalid Title";
+    errorDiv.style.display = "initial";
+  }
 }
 
 function addTodo() {
@@ -19,7 +43,7 @@ function addTodo() {
   const duration = getDurationInSeconds();
   if (!duration) return;
 
-  todos.push({ text, duration, completed: false });
+  todos.push({ text, duration, isUrgent, completed: false });
   textInput.value = "";
   hourInput.value = "";
   minuteInput.value = "";
@@ -66,12 +90,20 @@ function toggleComplete(index) {
   renderTodos();
 }
 
+function toggleSort() {
+  sortInfo.sorted = !sortInfo.sorted;
+  renderTodos();
+}
+
 function renderTodos() {
   const list = document.getElementById("todo-list");
   list.innerHTML = "";
-  todos.forEach((todo, index) => {
+  let finalTodo = getTodosForRender();
+  finalTodo.forEach((todo, index) => {
     const li = document.createElement("li");
     if (todo.completed) li.classList.add("completed");
+    if (todo.isUrgent) li.classList.add("urgent");
+
     li.innerHTML = `
     <span class="task-title-text">${todo.text}</span>
     <span class="task-duration-text">${formatDuration(todo.duration)}</span>

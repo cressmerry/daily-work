@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2>To-Do App</h2>
+
+    <input
+      type="text"
+      id="taskInput"
+      onkeydown="
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          document.getElementById('submit-button').click();
+        }
+      "
+      placeholder="Enter task"
+    />
+    <button id="submit-button" onclick="addTask()">Add</button>
+
+    <ul id="taskList"></ul>
+
+    <script src="script.js"></script>
+  </body>
+</html>
