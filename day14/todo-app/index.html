@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Todo App</title>
+    <link rel="stylesheet" href="index.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <h2>Todo App</h2>
+      <div class="todo-input">
+        <div class="task-input">
+          <input
+            class="task-title-input"
+            type="text"
+            placeholder="Enter task..."
+            onkeyup="validateInput(this)"
+          />
+          <input class="task-duration-input" type="datetime-local" />
+        </div>
+        <div class="urgency-input">
+          <label for="urgency-level-input">Urgency: </label>
+          <select id="urgency-level-input" name="urgency-level-input">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+        <div class="error-div"></div>
+        <button class="add-button" onclick="addTodo()">Add</button>
+      </div>
+      <button class="sort-button" onclick="toggleSort()">Sort</button>
+      <ul id="todo-list"></ul>
+    </div>
+  </body>
+</html>
