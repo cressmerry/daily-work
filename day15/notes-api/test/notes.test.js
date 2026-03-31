@@ -40,7 +40,9 @@ describe("Notes API Tests", () => {
   });
 
   it("Test for POST /notes with no title", async () => {
-    const response = await request(app).post("/notes").send({ content: "Content" });
+    const response = await request(app)
+      .post("/notes")
+      .send({ content: "Content" });
 
     expect(response.status).to.equal(400);
   });
@@ -69,6 +71,21 @@ describe("Notes API Tests", () => {
 
   it("Test for POST /notes with blank title nor content", async () => {
     const response = await createPostRequest("         ", "        ");
+    expect(response.status).to.equal(400);
+  });
+
+  it("Test for POST /notes with numeric title and content", async () => {
+    const response = await createPostRequest(1, 1);
+    expect(response.status).to.equal(400);
+  });
+
+  it("Test for POST /notes with numeric content", async () => {
+    const response = await createPostRequest("Task Title", 1);
+    expect(response.status).to.equal(400);
+  });
+
+  it("Test for POST /notes with numeric title", async () => {
+    const response = await createPostRequest(1, "Task Content");
     expect(response.status).to.equal(400);
   });
 
