@@ -38,8 +38,20 @@ exports.createNote = async (request, response) => {
 };
 
 exports.deleteNote = async (request, response) => {
-  const deletionSatus = await service.deleteNote(request.params.id);
-  return deletionSatus
+  const deletionStatus = await service.deleteNote(request.params.id);
+  return deletionStatus
     ? response.status(200).end()
     : response.status(404).end();
+};
+
+exports.updateNote = async (request, response) => {
+  const updationStatus = await service.updateNote(
+    request.params.id,
+    request.body,
+  );
+  if (updationStatus.statusCode == 200) return response.status(200).end();
+  else
+    response
+      .status(updationStatus.statusCode)
+      .json({ error: updationStatus.msg });
 };

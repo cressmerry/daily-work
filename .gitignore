@@ -11,7 +11,7 @@ local.properties
 .loadpath
 .recommenders
 *.class
-
+coverage/
 # External tool builders
 .externalToolBuilders/
 
