@@ -105,6 +105,18 @@ describe("Notes API Tests", () => {
     );
     expect(response.status).to.equal(404);
   });
+
+  it("Test for DELETE /notes/:id without passing an id", async () => {
+    const response = await request(app).delete("/notes/");
+    expect(response.status).to.equal(404);
+  });
+
+  it("Test for DELETE /notes/:id for alphanumeric id", async () => {
+    const response = await request(app).delete(
+      "/notes/" + Math.random() * (Date.now() - 1) + 1 + "ABCDE",
+    );
+    expect(response.status).to.equal(404);
+  });
 });
 async function createPostRequest(title, content) {
   return await request(app).post("/notes").send({ title, content });
