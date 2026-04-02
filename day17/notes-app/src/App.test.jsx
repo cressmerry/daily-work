@@ -6,15 +6,13 @@ test("adds and deletes note", () => {
   fireEvent.change(screen.getByPlaceholderText(/enter note/i), {
     target: { value: "New Note" },
   });
-  fireEvent.change(screen.getByPlaceholderText(/enter status/i), {
-    target: { value: "New Note Status" },
-  });
+  fireEvent.click(screen.getByLabelText(/status/i));
   fireEvent.click(screen.getByText(/add/i));
   expect(
-    screen.getByText("New Note Status:New Note Status"),
+    screen.getByText("New Note Status:closed"),
   ).toBeInTheDocument();
   fireEvent.click(screen.getByText(/delete/i));
   expect(
-    screen.queryByText("New Note Status:New Note Status"),
+    screen.queryByText("New Note Status:closed"),
   ).not.toBeInTheDocument();
 });

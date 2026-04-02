@@ -1,24 +1,22 @@
 import { useState } from "react";
 
 function NoteForm({ addNote }) {
-  const [note, setNote] = useState({ title: "", status: "" });
-
+  const [note, setNote] = useState({ title: "", status: "open" });
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!note.title.trim()) return;
-    if (!note.status.trim()) return;
     addNote({
       title: note.title.trim(),
-      status: note.status.trim(),
+      status: note.status,
     });
-    setNote({ title: "", status: "" });
+    setNote({ title: "", status: "open" });
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, type, checked } = event.target;
     setNote((prevNote) => ({
       ...prevNote,
-      [name]: value,
+      [name]: type === "checkbox" ? (checked ? "closed" : "open") : value,
     }));
   };
 
@@ -30,12 +28,16 @@ function NoteForm({ addNote }) {
         value={note.title}
         onChange={handleChange}
       />
-      <input
-        name="status"
-        placeholder="Enter status..."
-        value={note.status}
-        onChange={handleChange}
-      />
+
+      <label>
+        Status
+        <input
+          name="status"
+          type="checkbox"
+          checked={note.status === "closed"}
+          onChange={handleChange}
+        />
+      </label>
       <button type="submit">Add</button>
     </form>
   );
