@@ -4,7 +4,7 @@ function NoteItem({ note, deleteNote }) {
   };
   return (
     <li>
-      {note.title}
+      <span>{note.title} Status:{note.status}</span>
       <button onClick={handleDeleteClick}>Delete</button>
     </li>
   );
