@@ -6,11 +6,12 @@ test("adds and deletes note", () => {
   fireEvent.change(screen.getByPlaceholderText(/enter note/i), {
     target: { value: "New Note" },
   });
-  fireEvent.change(screen.getByPlaceholderText(/enter status/i), {
-    target: { value: "New Note Status" },
-  });
+  fireEvent.click(screen.getByLabelText(/status/i));
   fireEvent.click(screen.getByText(/add/i));
-  expect(screen.getByText("New Note")).toBeInTheDocument();
-  fireEvent.click(screen.getByText(/delete/i));
-  expect(screen.queryByText("New Note")).not.toBeInTheDocument();
+  expect(screen.getByText(/New Note/i)).toBeInTheDocument();
+  const statusIndicator = screen.getByTitle("Task Status");
+  expect(statusIndicator).toHaveTextContent("closed");
+  expect(statusIndicator).toHaveClass("closed-task-indicator");
+  fireEvent.click(screen.getByText(/✖/i));
+  expect(screen.queryByText(/New Note/i)).not.toBeInTheDocument();
 });

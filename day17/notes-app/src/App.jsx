@@ -16,7 +16,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="notes-app-card">
       <h1>Notes App</h1>
       <NoteForm addNote={addNote} />
       <NoteList notes={notes} deleteNote={deleteNote} />

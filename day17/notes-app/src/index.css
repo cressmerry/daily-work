@@ -1,0 +1,143 @@
+.notes-app-card {
+  background: white;
+  width: 520px;
+  max-width: 100%;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  min-height: 300px;
+  text-align: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+ul {
+  padding: 10px 0 0 0;
+  margin: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 12px;
+  box-sizing: border-box;
+  min-height: 72px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+
+.note-content {
+  display: flex;
+  gap: 6px;
+  flex: 1 1 0;
+  min-width: 0;
+  justify-content: center;
+}
+
+.note-title-text {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.task-indicator {
+  border-radius: 3px;
+  font-size: 10px;
+  padding: 2px;
+}
+
+.closed-task-indicator {
+  background-color: orangered;
+  color: white;
+}
+
+.open-task-indicator {
+  background-color: greenyellow;
+  color: grey;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 200;
+  font-size: 15px;
+  color: white;
+  justify-content: center;
+}
+
+.add-button {
+  text-align: center;
+  background-color: green;
+  border-radius: 5px;
+  height: 33px;
+  width: 45px;
+  padding: 10px;
+}
+
+.delete-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: red;
+}
+
+.note-title-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  padding: 8px 10px;
+  height: 40px;
+  outline: none;
+  border-radius: 0;
+}
+
+.notes-input {
+  flex: 0 0 75%;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.notes-input:focus-within {
+  box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.15);
+  border-color: #66a3ff;
+}
+
+.error-message {
+  height: 20px;
+  padding: 5px;
+  font-weight: bolder;
+  width: fit-content;
+  background-color: red;
+  color: white;
+  border-radius: 4px;
+}

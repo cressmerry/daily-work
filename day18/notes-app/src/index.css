@@ -1,0 +1,167 @@
+.notes-app-card {
+  background: white;
+  width: 520px;
+  max-width: 100%;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  min-height: 300px;
+  text-align: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+ul {
+  padding: 10px 0 0 0;
+  margin: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+.note-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  text-align: left;
+}
+
+.note-content.closed-note {
+  opacity: 0.6;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.closed-note .note-title-text {
+  text-decoration: line-through;
+  color: #7f8c8d;
+}
+
+.closed-note .note-body-text {
+  color: #95a5a6;
+}
+
+.note-title-text {
+  font-weight: 600;
+  font-size: 18px;
+  color: #333;
+}
+
+.note-body-text {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.notes-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.note-title-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+  height: 40px;
+  outline: none;
+  font-weight: bold;
+}
+
+.note-content-input {
+  width: 100%;
+  border: none;
+  padding: 10px;
+  min-height: 100px;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.notes-input:focus-within {
+  box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.15);
+  border-color: #66a3ff;
+}
+
+.add-button {
+  margin-top: 10px;
+  background-color: #27ae60;
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  align-self: flex-end;
+}
+
+.delete-button,
+.close-note-button {
+  width: 35px;
+  height: 35px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+}
+
+.delete-button {
+  background-color: #e74c3c;
+}
+
+.close-note-button {
+  background-color: #f39c12;
+}
+
+.delete-button:disabled,
+.close-note-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  margin-top: 10px;
+  padding: 8px;
+  font-weight: bold;
+  background-color: #c0392b;
+  color: white;
+  border-radius: 4px;
+  font-size: 12px;
+}
