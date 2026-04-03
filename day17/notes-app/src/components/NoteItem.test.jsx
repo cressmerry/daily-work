@@ -5,6 +5,6 @@ test("calls delete on button click", () => {
   const deleteNote = jest.fn();
   const note = { id: 1, text: "Test" };
   render(<NoteItem note={note} deleteNote={deleteNote} />);
-  fireEvent.click(screen.getByText(/delete/i));
+  fireEvent.click(screen.getByText(/✖/i));
   expect(deleteNote).toHaveBeenCalledWith(1);
 });

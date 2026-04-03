@@ -1,10 +1,20 @@
 import { useState } from "react";
+import axios from "axios";
 
 function NoteForm({ addNote }) {
   const [note, setNote] = useState({ title: "", status: "open" });
+  const [errorMessage, setErrorMssage] = useState({
+    message: "",
+    visible: false,
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!note.title.trim()) return;
+    if (!note.title.trim()) {
+      setErrorMssage({ message: "Invalid Title", visible: true });
+      return;
+    }
+    setErrorMssage({ message: "", visible: false });
+    sendPostRequest(note);
     addNote({
       title: note.title.trim(),
       status: note.status,
@@ -20,25 +30,35 @@ function NoteForm({ addNote }) {
     }));
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="title"
-        placeholder="Enter note..."
-        value={note.title}
-        onChange={handleChange}
-      />
+  function sendPostRequest(note){
+    axios.post();
+  }
 
-      <label>
-        Status
+  return (
+    <form className="notes-form" onSubmit={handleSubmit}>
+      <div className="notes-input">
         <input
-          name="status"
-          type="checkbox"
-          checked={note.status === "closed"}
+          className="note-title-input"
+          name="title"
+          placeholder="Enter note..."
+          value={note.title}
           onChange={handleChange}
         />
-      </label>
-      <button type="submit">Add</button>
+
+        <label>
+          Status
+          <input
+            name="status"
+            type="checkbox"
+            checked={note.status === "closed"}
+            onChange={handleChange}
+          />
+        </label>
+      </div>
+      <button className="add-button" type="submit">
+        Add
+      </button>
+      {errorMessage.visible && (<div className="error-message"> {errorMessage.message}</div>)}
     </form>
   );
 }
