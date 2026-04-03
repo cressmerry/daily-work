@@ -1,24 +1,42 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import App from "./App";
+import api from "./api";
 
-test("adds and deletes note", async () => {
-  render(<App />);
+jest.mock("./api");
+describe("App Component", () => {
+  test("adds and deletes note", async () => {
+    api.get.mockResolvedValue({ data: [] });
+    api.post.mockResolvedValue({
+      data: {
+        id: 1,
+        title: "New Note",
+        content: "New Content",
+        status: "created",
+      },
+    });
+    api.delete.mockResolvedValue({});
 
-  fireEvent.change(screen.getByPlaceholderText(/enter title/i), {
-    target: { value: "New Note" },
-  });
-  fireEvent.change(screen.getByPlaceholderText(/enter content/i), {
-    target: { value: "New Content" },
-  });
-  fireEvent.click(screen.getByText(/add/i));
+    render(<App />);
 
-  const noteTitle = await screen.findByText("New Note");
-  expect(noteTitle).toBeInTheDocument();
+    fireEvent.change(screen.getByPlaceholderText(/enter title/i), {
+      target: { value: "New Note" },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/enter content/i), {
+      target: { value: "New Content" },
+    });
 
-  const deleteButton = screen.getByRole("button", { name: /delete/i });
-  fireEvent.click(deleteButton);
+    fireEvent.click(screen.getByRole("button", { name: /add note/i }));
 
-  await waitFor(() => {
-    expect(screen.queryByText("New Note")).not.toBeInTheDocument();
+    const noteTitle = await screen.findByText("New Note");
+    expect(noteTitle).toBeInTheDocument();
+
+    const deleteButton = screen.getByText("✖");
+    fireEvent.click(deleteButton);
+
+    await waitFor(() => {
+      expect(screen.queryByText("New Note")).not.toBeInTheDocument();
+    });
+
+    expect(api.delete).toHaveBeenCalledWith("/notes/1/");
   });
 });
