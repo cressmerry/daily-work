@@ -3,7 +3,7 @@ import api from "../api";
 
 function NoteForm({ addNote }) {
   const [note, setNote] = useState({ title: "", content: "" });
-  const [errorMessage, setErrorMessage] = useState({ 
+  const [errorMessage, setErrorMessage] = useState({
     message: "",
     visible: false,
   });
@@ -12,7 +12,10 @@ function NoteForm({ addNote }) {
     event.preventDefault();
 
     if (!note.title.trim() || !note.content.trim()) {
-      setErrorMessage({ message: "Title and Content are required", visible: true });
+      setErrorMessage({
+        message: "Title and Content are required",
+        visible: true,
+      });
       return;
     }
 
@@ -23,7 +26,7 @@ function NoteForm({ addNote }) {
         content: note.content.trim(),
       });
 
-      addNote(response.data);
+      addNote({ ...response.data, status: "created" });
       setNote({ title: "", content: "" });
     } catch (error) {
       setErrorMessage({ message: "Failed to save note.", visible: true });
@@ -44,14 +47,14 @@ function NoteForm({ addNote }) {
         <input
           className="note-title-input"
           name="title"
-          placeholder="Title"
+          placeholder="Enter Title..."
           value={note.title}
           onChange={handleChange}
         />
         <textarea
           className="note-content-input"
           name="content"
-          placeholder="Content"
+          placeholder="Enter Content..."
           value={note.content}
           onChange={handleChange}
         />

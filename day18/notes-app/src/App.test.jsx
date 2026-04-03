@@ -1,17 +1,24 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import App from "./App";
 
-test("adds and deletes note", () => {
+test("adds and deletes note", async () => {
   render(<App />);
-  fireEvent.change(screen.getByPlaceholderText(/enter note/i), {
+
+  fireEvent.change(screen.getByPlaceholderText(/enter title/i), {
     target: { value: "New Note" },
   });
-  fireEvent.click(screen.getByLabelText(/status/i));
+  fireEvent.change(screen.getByPlaceholderText(/enter content/i), {
+    target: { value: "New Content" },
+  });
   fireEvent.click(screen.getByText(/add/i));
-  expect(screen.getByText(/New Note/i)).toBeInTheDocument();
-  const statusIndicator = screen.getByTitle("Task Status");
-  expect(statusIndicator).toHaveTextContent("closed");
-  expect(statusIndicator).toHaveClass("closed-task-indicator");
-  fireEvent.click(screen.getByText(/✖/i));
-  expect(screen.queryByText(/New Note/i)).not.toBeInTheDocument();
+
+  const noteTitle = await screen.findByText("New Note");
+  expect(noteTitle).toBeInTheDocument();
+
+  const deleteButton = screen.getByRole("button", { name: /delete/i });
+  fireEvent.click(deleteButton);
+
+  await waitFor(() => {
+    expect(screen.queryByText("New Note")).not.toBeInTheDocument();
+  });
 });

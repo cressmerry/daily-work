@@ -47,6 +47,21 @@ li {
   text-align: left;
 }
 
+.note-content.closed-note {
+  opacity: 0.6;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+
+.closed-note .note-title-text {
+  text-decoration: line-through;
+  color: #7f8c8d;
+}
+
+.closed-note .note-body-text {
+  color: #95a5a6;
+}
+
 .note-title-text {
   font-weight: 600;
   font-size: 18px;
@@ -97,28 +112,55 @@ li {
 
 .add-button {
   margin-top: 10px;
-  background-color: green;
+  background-color: #27ae60;
   border-radius: 5px;
   height: 40px;
   width: 100%;
   color: white;
   font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  align-self: flex-end;
+}
+
+.delete-button,
+.close-note-button {
+  width: 35px;
+  height: 35px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
 }
 
 .delete-button {
-  align-self: flex-end;
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
-  background-color: red;
-  color: white;
+  background-color: #e74c3c;
+}
+
+.close-note-button {
+  background-color: #f39c12;
+}
+
+.delete-button:disabled,
+.close-note-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .error-message {
   margin-top: 10px;
   padding: 8px;
   font-weight: bold;
-  background-color: red;
+  background-color: #c0392b;
   color: white;
   border-radius: 4px;
   font-size: 12px;
