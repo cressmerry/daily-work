@@ -1,57 +1,39 @@
-const { request, response } = require("express");
 const service = require("../services/notesService");
 
-exports.getAllNotes = async (request, response) => {
-  const notes = await service.getNotes();
-
-  response.json(notes);
+exports.getAllNotes = async (req, res) => {
+  try {
+    const notes = await service.getNotes();
+    res.json(notes);
+  } catch (error) {
+    res.status(500).end();
+  }
 };
 
-exports.getNoteById = async (request, response) => {
-  const note = await service.getNoteById(request.params.id);
-  if (!note) {
-    return response.status(404).end();
-  }
-  return response.status(200).json(note);
+exports.getNoteById = async (req, res) => {
+  const note = await service.getNoteById(req.params.id);
+  if (!note) return res.status(404).end();
+  res.status(200).json(note);
 };
 
-exports.createNote = async (request, response) => {
-  const body = request && request.body ? request.body : {};
-  const titleRaw = body.title;
-  const contentRaw = body.content;
-
-  const title = typeof titleRaw === "string" ? titleRaw.trim() : "";
-  const content = typeof contentRaw === "string" ? contentRaw.trim() : "";
-
-  if (!title && !content) {
-    return response.status(400).json({ error: "Title & content required" });
+exports.createNote = async (req, res) => {
+  try {
+    const newNote = await service.createNote(req.body);
+    res.status(201).json(newNote);
+  } catch (error) {
+    res.status(error.statusCode || 500).end();
   }
-  if (!title) {
-    return response.status(400).json({ error: "Title required" });
-  }
-  if (!content) {
-    return response.status(400).json({ error: "Content required" });
-  }
-
-  const newNote = await service.createNote(title, content);
-  return response.status(201).json(newNote);
 };
 
-exports.deleteNote = async (request, response) => {
-  const deletionStatus = await service.deleteNote(request.params.id);
-  return deletionStatus
-    ? response.status(200).end()
-    : response.status(404).end();
+exports.deleteNote = async (req, res) => {
+  const success = await service.deleteNote(req.params.id);
+  success ? res.status(200).end() : res.status(404).end();
 };
 
-exports.updateNote = async (request, response) => {
-  const updationStatus = await service.updateNote(
-    request.params.id,
-    request.body,
-  );
-  if (updationStatus.statusCode == 200) return response.status(200).end();
-  else
-    response
-      .status(updationStatus.statusCode)
-      .json({ error: updationStatus.msg });
+exports.updateNote = async (req, res) => {
+  try {
+    const updatedNote = await service.updateNote(req.params.id, req.body);
+    res.status(200).json(updatedNote);
+  } catch (error) {
+    res.status(error.statusCode || 500).end();
+  }
 };

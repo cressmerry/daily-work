@@ -6,19 +6,15 @@ function NoteItem({ note, deleteNote, closeNote }) {
 
   if (!note) return null;
 
-  const handleDelete = async () => {
-    if (isProcessing) return;
-    setIsProcessing(true);
-    try {
-      const id = note.id;
-      await api.delete(`/notes/${id}/`);
-      deleteNote(id);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsProcessing(false);
-    }
+  const formatDate = (isoString) => {
+    if (!isoString) return "";
+    const date = new Date(isoString);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
   };
+
+const handleDelete = () => {
+  deleteNote(note.id); 
+};
 
   const handleClose = async () => {
     if (isProcessing) return;
@@ -41,7 +37,12 @@ function NoteItem({ note, deleteNote, closeNote }) {
       <div
         className={`note-content ${note.status === "closed" ? "closed-note" : ""}`}
       >
-        <span className="note-title-text">{note.title}</span>
+        <div className="note-header">
+          <span className="note-title-text">{note.title}</span>
+          <span className="note-date-text">
+            {formatDate(note.completion_time)}
+          </span>
+        </div>
         <p className="note-body-text">{note.content}</p>
       </div>
       <div className="button-group">
