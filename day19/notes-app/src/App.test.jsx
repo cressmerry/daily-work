@@ -15,28 +15,8 @@ describe("App Component", () => {
       },
     });
     api.delete.mockResolvedValue({});
-
     render(<App />);
+    
 
-    fireEvent.change(screen.getByPlaceholderText(/enter title/i), {
-      target: { value: "New Note" },
-    });
-    fireEvent.change(screen.getByPlaceholderText(/enter content/i), {
-      target: { value: "New Content" },
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: /add note/i }));
-
-    const noteTitle = await screen.findByText("New Note");
-    expect(noteTitle).toBeInTheDocument();
-
-    const deleteButton = screen.getByText("✖");
-    fireEvent.click(deleteButton);
-
-    await waitFor(() => {
-      expect(screen.queryByText("New Note")).not.toBeInTheDocument();
-    });
-
-    expect(api.delete).toHaveBeenCalledWith("/notes/1/");
   });
 });

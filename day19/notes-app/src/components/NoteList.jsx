@@ -1,14 +1,14 @@
 import NoteItem from "./NoteItem";
 
-function NoteList({ notes, deleteNote, closeNote }) {
+function NoteList({ notes, onDelete, onClose }) {
   return (
     <ul>
       {notes.map((note) => (
         <NoteItem
           key={note.id}
           note={note}
-          deleteNote={deleteNote}
-          closeNote={closeNote}
+          onDelete={onDelete}
+          onClose={onClose}
         />
       ))}
     </ul>

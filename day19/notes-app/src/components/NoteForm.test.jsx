@@ -9,26 +9,45 @@ describe("NoteForm Component", () => {
     jest.clearAllMocks();
   });
 
-  test("adds note on submit", async () => {
-    api.post.mockResolvedValue({
-      data: { id: 123, title: "Test Note Title", content: "Test Note Content" },
-    });
+  test("adds note on clicking the Add Button", async () => {
+    const mockResponse = { 
+      id: 123, 
+      title: "Test Note Title", 
+      content: "Test Note Content",
+      completion_time: "2099-01-01T10:00:00.000Z"
+    };
+
+    api.post.mockResolvedValue({ data: mockResponse });
+    
     const addNote = jest.fn();
     render(<NoteForm addNote={addNote} />);
+
     fireEvent.change(screen.getByPlaceholderText(/enter title/i), {
-      target: { value: "Test Note Title" },
+      target: { name: "title", value: "Test Note Title" },
     });
+    
     fireEvent.change(screen.getByPlaceholderText(/enter content/i), {
-      target: { value: "Test Note Content" },
+      target: { name: "content", value: "Test Note Content" },
     });
+
+    const futureDate = "2099-01-01T10:00";
+    fireEvent.change(screen.getByLabelText(/completion time/i), {
+      target: { name: "completionTime", value: futureDate },
+    });
+
     fireEvent.click(screen.getByText(/add note/i));
+
     await waitFor(() => {
       expect(addNote).toHaveBeenCalledWith({
-        title: "Test Note Title",
-        content: "Test Note Content",
-        id: 123,
+        ...mockResponse,
         status: "created",
       });
+    });
+
+    expect(api.post).toHaveBeenCalledWith("/notes", {
+      title: "Test Note Title",
+      content: "Test Note Content",
+      completion_time: new Date(futureDate).toISOString(),
     });
   });
 });

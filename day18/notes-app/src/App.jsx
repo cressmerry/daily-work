@@ -1,12 +1,13 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import AddNote from "./AddNote";
+import Homepage from "./Homepage";
+import Notes from "./Notes";
 import { useState, useEffect } from "react";
 import api from "./api";
-import NoteForm from "./components/NoteForm";
-import NoteList from "./components/NoteList";
-import DeleteModal from "./components/DeleteModal";
 
 function App() {
   const [notes, setNotes] = useState([]);
-  const [noteToDelete, setNoteToDelete] = useState(null);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -20,45 +21,38 @@ function App() {
     fetchNotes();
   }, []);
 
-  const addNote = (newNote) => {
-    setNotes((prev) => [...prev, newNote]);
-  };
-
-  const confirmDelete = async () => {
-    if (!noteToDelete) return;
-    try {
-      await api.delete(`/notes/${noteToDelete}/`);
-      setNotes((prev) => prev.filter((note) => note.id !== noteToDelete));
-    } catch (error) {
-      console.error("Failed to delete:", error);
-    } finally {
-      setNoteToDelete(null);
-    }
-  };
-
-  const closeNote = (id) => {
-    setNotes((prev) =>
-      prev.map((note) =>
-        note.id === id ? { ...note, status: "closed" } : note
-      )
-    );
-  };
 
   return (
-    <div className="notes-app-card">
-      <NoteForm addNote={addNote} />
-      <NoteList 
-        notes={notes} 
-        deleteNote={setNoteToDelete} 
-        closeNote={closeNote} 
-      />
-      {noteToDelete && (
-        <DeleteModal 
-          onConfirmAction={confirmDelete} 
-          onCancelAction={() => setNoteToDelete(null)} 
-        />
-      )}
-    </div>
+    <BrowserRouter>
+      <div className="app-container">
+        <Navbar />
+        <main className="content-area">
+          <div className="page-wrapper">
+            <Routes>
+              <Route index element={<Homepage notes="notes" />} />
+              <Route
+                path="/add"
+                element={
+                  <AddNote
+                    notes={notes}
+                    setNotes={setNotes}
+                  />
+                }
+              />
+              <Route
+                path="/notes"
+                element={
+                  <Notes
+                    notes={notes}
+                  />
+                }
+              />
+              <Route path="*" element={<Homepage />} />
+            </Routes>
+          </div>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 

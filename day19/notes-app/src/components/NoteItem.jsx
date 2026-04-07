@@ -1,9 +1,6 @@
-import { useState } from "react";
-import api from "../api";
+import ActionButtons from "./ActionButtons";
 
-function NoteItem({ note, deleteNote, closeNote }) {
-  const [isProcessing, setIsProcessing] = useState(false);
-
+function NoteItem({ note, onDelete, onClose }) {
   if (!note) return null;
 
   const formatDate = (isoString) => {
@@ -12,57 +9,25 @@ function NoteItem({ note, deleteNote, closeNote }) {
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
   };
 
-const handleDelete = () => {
-  deleteNote(note.id); 
-};
-
-  const handleClose = async () => {
-    if (isProcessing) return;
-    setIsProcessing(true);
-    try {
-      const id = note.id;
-      await api.put(`/notes/${id}/`, {
-        status: "closed",
-      });
-      closeNote(id);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
   return (
     <li>
       <div
         className={`note-content ${note.status === "closed" ? "closed-note" : ""}`}
       >
         <div className="note-header">
-          <span className="note-title-text">{note.title}</span>
+          <span className="note-title-text" title={note.title}>
+            {note.title}
+          </span>
           <span className="note-date-text">
             {formatDate(note.completion_time)}
           </span>
+          <span className="note-priority-text">Priority: {note.priority}</span>
         </div>
-        <p className="note-body-text">{note.content}</p>
+        <p className="note-body-text" title={note.content}>
+          {note.content}
+        </p>
       </div>
-      <div className="button-group">
-        <button
-          className="delete-button"
-          onClick={handleDelete}
-          disabled={isProcessing}
-        >
-          ✖
-        </button>
-        {note.status === "created" && (
-          <button
-            className="close-note-button"
-            onClick={handleClose}
-            disabled={isProcessing}
-          >
-            ✔
-          </button>
-        )}
-      </div>
+      <ActionButtons note={note} onDelete={onDelete} onClose={onClose} />
     </li>
   );
 }

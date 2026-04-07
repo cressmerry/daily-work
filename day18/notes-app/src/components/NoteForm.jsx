@@ -71,6 +71,7 @@ function NoteForm({ addNote }) {
           />
           <input
             type="datetime-local"
+            aria-label="Completion Time"
             className="note-completion-time-input"
             name="completionTime"
             value={note.completionTime}

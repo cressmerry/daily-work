@@ -9,7 +9,7 @@ describe("NoteItem Component", () => {
     jest.clearAllMocks();
   });
 
-  test("tests for the delete button", async () => {
+  test("tests for successfull deletion using the delete button", async () => {
     api.delete.mockResolvedValue({});
     const deleteNote = jest.fn();
     const note = { id: 1, title: "Test", content: "Test Content", status: "created" };
@@ -24,7 +24,7 @@ describe("NoteItem Component", () => {
     expect(api.delete).toHaveBeenCalledWith("/notes/1/");
   });
 
-  test("tests for the close button", async () => {
+  test("tests for successfull close using the the close button", async () => {
     api.put.mockResolvedValue({ data: { status: "closed" } });
     const closeNote = jest.fn();
     const note = { id: 1, title: "Test", content: "Test Content", status: "created" };
