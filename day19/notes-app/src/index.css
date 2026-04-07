@@ -72,6 +72,14 @@ body {
   font-weight: 700;
 }
 
+.logo-sup {
+  font-size: 1.8rem;
+  vertical-align: super;
+  color: var(--primary);
+  margin-left: 4px;
+  font-weight: 700;
+}
+
 .nav-links {
   display: flex;
   gap: 24px;
@@ -510,6 +518,7 @@ li:hover {
 .bold-text {
   font-weight: 600;
   color: var(--text-main);
+  text-overflow: ellipsis;
 }
 
 .date-cell {
@@ -671,3 +680,4 @@ li:hover {
     transform: translateY(0);
   }
 }
+
