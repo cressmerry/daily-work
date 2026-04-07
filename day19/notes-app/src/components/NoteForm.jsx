@@ -2,10 +2,13 @@ import { useState } from "react";
 import api from "../api";
 
 function NoteForm({ addNote }) {
+  let maxContentLimit = 100;
+  let maxTitleLimit = 30;
   const [note, setNote] = useState({
     title: "",
     content: "",
     completionTime: "",
+    priority: 15,
   });
   const [errorMessage, setErrorMessage] = useState({
     message: "",
@@ -25,7 +28,7 @@ function NoteForm({ addNote }) {
 
     const date = new Date(note.completionTime);
     if (isNaN(date.getTime()) || date < new Date()) {
-       setErrorMessage({
+      setErrorMessage({
         message: "Invalid Completion Time",
         visible: true,
       });
@@ -34,17 +37,17 @@ function NoteForm({ addNote }) {
 
     try {
       setErrorMessage({ message: "", visible: false });
-
       const isoCompletionTime = new Date(note.completionTime).toISOString();
 
       const response = await api.post("/notes", {
         title: note.title.trim(),
         content: note.content.trim(),
         completion_time: isoCompletionTime,
+        priority: note.priority,
       });
 
       addNote({ ...response.data, status: "created" });
-      setNote({ title: "", content: "", completionTime: "" });
+      setNote({ title: "", content: "", completionTime: "", priority: 15 });
     } catch (error) {
       setErrorMessage({ message: "Failed to save note.", visible: true });
     }
@@ -52,6 +55,10 @@ function NoteForm({ addNote }) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+
+    if (name === "title" && value.length > maxTitleLimit) return;
+    if (name === "content" && value.length > maxContentLimit) return;
+
     setNote((prevNote) => ({
       ...prevNote,
       [name]: value,
@@ -78,13 +85,31 @@ function NoteForm({ addNote }) {
             onChange={handleChange}
           />
         </div>
-        <textarea
-          className="note-content-input"
-          name="content"
-          placeholder="Enter Content..."
-          value={note.content}
-          onChange={handleChange}
-        />
+        <div className="textarea-container">
+          <textarea
+            className="note-content-input"
+            name="content"
+            placeholder="Enter Content..."
+            value={note.content}
+            onChange={handleChange}
+          />
+          <div className="char-counter">{note.content.length} / {maxContentLimit}</div>
+        </div>
+        <div className="priority-container">
+          <div className="priority-header">
+            <label htmlFor="priority">Priority: {note.priority}</label>
+          </div>
+          <input
+            type="range"
+            id="priority"
+            name="priority"
+            min="0"
+            max="30"
+            className="priority-slider"
+            value={note.priority}
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <button className="add-button" type="submit">
         Add Note

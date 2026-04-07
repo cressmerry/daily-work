@@ -12,9 +12,9 @@ async function getNoteById(id) {
 }
 
 async function createNote(noteData) {
-  const { title, content, completion_time } = noteData;
+  const { title, content, completion_time, priority } = noteData;
 
-  if (!title || !content || !completion_time) {
+  if (!title || !content || !completion_time || priority < 0 || priority > 30) {
     throw { statusCode: 400 };
   }
 
@@ -30,7 +30,8 @@ async function createNote(noteData) {
     content: content.trim(),
     status: "created",
     created_at: new Date().toISOString(),
-    completion_time
+    completion_time,
+    priority
   };
 
   notes.push(newNote);

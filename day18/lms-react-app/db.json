@@ -1,0 +1,15 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "title": "React Basics",
+      "description": "Intro course"
+    },
+    {
+      "title": "Hello WOrld",
+      "description": "jadhsfk",
+      "id": "SXuQ-ZhblBA"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
