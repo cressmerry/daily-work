@@ -1,6 +1,6 @@
 import ActionButtons from "./ActionButtons";
 
-function NoteTable({ notes, onDelete, onClose }) {
+function NoteTable({ notes, onDelete, onClose, requestSort, sortConfig }) {
   const formatDate = (isoString) => {
     if (!isoString) return { date: "N/A", time: "" };
     const d = new Date(isoString);
@@ -18,6 +18,11 @@ function NoteTable({ notes, onDelete, onClose }) {
     };
   };
 
+  const getSortIcon = (columnKey) => {
+    if (sortConfig.key !== columnKey) return "⬧";
+    return sortConfig.direction === "asc" ? "▲" : "▼";
+  };
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-header">
@@ -27,15 +32,39 @@ function NoteTable({ notes, onDelete, onClose }) {
       <div className="table-wrapper">
         <table className="custom-table" style={{ tableLayout: "fixed" }}>
           <thead>
-            <tr>
+            <tr style={{ cursor: "pointer", userSelect: "none" }}>
               <th style={{ width: "35px" }}>#</th>
-              <th style={{ width: "15%" }}>Title</th>
-              <th>Content</th>
-              <th style={{ width: "80px" }}>Status</th>
-              <th style={{ width: "60px" }}>Pri.</th>
-              <th style={{ width: "95px" }}>Target</th>
-              <th style={{ width: "95px" }}>Created</th>
-              <th style={{ width: "85px" }}>Actions</th>
+              <th style={{ width: "15%" }} onClick={() => requestSort("title")}>
+                Title {getSortIcon("title")}
+              </th>
+              <th onClick={() => requestSort("content")}>
+                Content {getSortIcon("content")}
+              </th>
+              <th
+                style={{ width: "80px" }}
+                onClick={() => requestSort("status")}
+              >
+                Status {getSortIcon("status")}
+              </th>
+              <th
+                style={{ width: "60px" }}
+                onClick={() => requestSort("priority")}
+              >
+                Pri. {getSortIcon("priority")}
+              </th>
+              <th
+                style={{ width: "95px" }}
+                onClick={() => requestSort("completion_time")}
+              >
+                Target {getSortIcon("completion_time")}
+              </th>
+              <th
+                style={{ width: "95px" }}
+                onClick={() => requestSort("created_at")}
+              >
+                Created {getSortIcon("created_at")}
+              </th>
+              <th style={{ width: "85px", cursor: "default" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
