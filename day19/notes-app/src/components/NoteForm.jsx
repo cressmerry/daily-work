@@ -2,6 +2,8 @@ import { useState } from "react";
 import api from "../api";
 
 function NoteForm({ addNote }) {
+  let maxContentLimit = 100;
+  let maxTitleLimit = 30;
   const [note, setNote] = useState({
     title: "",
     content: "",
@@ -54,8 +56,8 @@ function NoteForm({ addNote }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === "title" && value.length > 30) return;
-    if (name === "content" && value.length > 100) return;
+    if (name === "title" && value.length > maxTitleLimit) return;
+    if (name === "content" && value.length > maxContentLimit) return;
 
     setNote((prevNote) => ({
       ...prevNote,
@@ -91,7 +93,7 @@ function NoteForm({ addNote }) {
             value={note.content}
             onChange={handleChange}
           />
-          <div className="char-counter">{note.content.length} / 200</div>
+          <div className="char-counter">{note.content.length} / {maxContentLimit}</div>
         </div>
         <div className="priority-container">
           <div className="priority-header">
