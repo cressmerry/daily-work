@@ -6,10 +6,10 @@ async function getNotes() {
   return JSON.parse(data);
 }
 
-async function getNoteById(id) {
-  const notes = await getNotes();
-  return notes.find((note) => note.id == id);
-}
+  async function getNoteById(id) {
+    const notes = await getNotes();
+    return notes.find((note) => note.id == id);
+  }
 
 async function createNote(noteData) {
   const { title, content, completion_time, priority } = noteData;

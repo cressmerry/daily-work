@@ -23,11 +23,12 @@ async function getQuestionById(qId) {
 
 async function registerQuestion(questionData) {
   const { qText } = questionData;
-  if (!qText || !qText.trim()) throw { statusCode: 400 };
+  if (!qText || typeof qText !== "string" || !qText.trim()) {
+    throw { statusCode: 400 };
+  }
 
   const questions = await getQuestions();
   const newQuestion = {
-    ...questionData,
     qId: generateId(),
     qText: qText.trim(),
   };
@@ -37,6 +38,25 @@ async function registerQuestion(questionData) {
   return newQuestion;
 }
 
+async function updateQuestion(qId, updates) {
+  const questions = await getQuestions();
+  const index = questions.findIndex((q) => q.qId === qId);
+  if (index === -1) throw { statusCode: 404 };
+
+  const sanitizedText =
+    updates.qText && typeof updates.qText === "string"
+      ? updates.qText.trim()
+      : questions[index].qText;
+
+  questions[index] = {
+    qId,
+    qText: sanitizedText,
+  };
+
+  await saveQuestions(questions);
+  return questions[index];
+}
+
 async function deleteQuestion(qId) {
   const questions = await getQuestions();
   const filtered = questions.filter((q) => q.qId !== qId);
@@ -44,16 +64,6 @@ async function deleteQuestion(qId) {
 
   await saveQuestions(filtered);
   return true;
-}
-
-async function updateQuestion(qId, updates) {
-  const questions = await getQuestions();
-  const index = questions.findIndex((q) => q.qId === qId);
-  if (index === -1) throw { statusCode: 404 };
-
-  questions[index] = { ...questions[index], ...updates, qId };
-  await saveQuestions(questions);
-  return questions[index];
 }
 
 async function saveQuestions(questions) {
