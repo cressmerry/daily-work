@@ -62,6 +62,7 @@ function Question({ questions, occupiedIds, onUpdate, hideAnswer, index }) {
               className="split-input-field"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
+              maxLength={255}
               required
             />
 
@@ -73,6 +74,7 @@ function Question({ questions, occupiedIds, onUpdate, hideAnswer, index }) {
               className="split-input-field"
               value={confirmAnswer}
               onChange={(e) => setConfirmAnswer(e.target.value)}
+              maxLength={255}
               required
             />
           </div>

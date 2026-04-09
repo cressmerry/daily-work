@@ -4,8 +4,8 @@ const app = require("../server");
 const fs = require("fs").promises;
 const path = require("path");
 
-const SUB_FILE = path.join(__dirname, "../src/data/submissions_db.json");
-const Q_FILE = path.join(__dirname, "../src/data/questions_db.json");
+const SUB_FILE = path.join(__dirname, "../data/submissions_db.json");
+const Q_FILE = path.join(__dirname, "../data/questions_db.json");
 
 describe("Submissions API", () => {
   let activeQId;

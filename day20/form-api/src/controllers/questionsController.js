@@ -5,17 +5,17 @@ exports.getAllQuestions = async (req, res) => {
     const questions = await service.getQuestions();
     res.json(questions);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).end();
   }
 };
 
 exports.getQuestionById = async (req, res) => {
   try {
     const question = await service.getQuestionById(req.params.id);
-    if (!question) return res.status(404).json({ error: "Question not found" });
+    if (!question) return res.status(404).end();
     res.status(200).json(question);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).end();
   }
 };
 
@@ -24,7 +24,7 @@ exports.registerQuestion = async (req, res) => {
     const newQuestion = await service.registerQuestion(req.body);
     res.status(201).json(newQuestion);
   } catch (error) {
-    res.status(error.statusCode || 500).json({ error: "Action failed" });
+    res.status(error.statusCode || 500).end();
   }
 };
 
@@ -33,9 +33,9 @@ exports.deleteQuestion = async (req, res) => {
     const success = await service.deleteQuestion(req.params.id);
     success
       ? res.status(200).end()
-      : res.status(404).json({ error: "Not found" });
+      : res.status(404).end();
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).end();
   }
 };
 
@@ -47,6 +47,6 @@ exports.updateQuestion = async (req, res) => {
     );
     res.status(200).json(updatedQuestion);
   } catch (error) {
-    res.status(error.statusCode || 500).json({ error: "Update failed" });
+    res.status(error.statusCode || 500).end();
   }
 };
