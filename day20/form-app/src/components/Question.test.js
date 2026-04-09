@@ -41,6 +41,29 @@ describe("Question Component", () => {
 
     fireEvent.change(input, { target: { value: "123" } });
     expect(screen.getByText("Min 5 characters required")).toBeInTheDocument();
+    fireEvent.change(input, { target: { value: " dddd" } });
+    expect(
+      screen.getByText("Min 5 characters required"),
+    ).toBeInTheDocument();
+  });
+
+  test("validates non-blank and non-empty requirement", () => {
+    render(
+      <Question
+        questions={mockQuestions}
+        occupiedIds={[]}
+        onUpdate={mockOnUpdate}
+        index={0}
+      />,
+    );
+
+    fireEvent.change(screen.getByRole("combobox"), { target: { value: "1" } });
+    const input = screen.getByPlaceholderText("Your Answer");
+
+    fireEvent.change(input, { target: { value: "      " } });
+    expect(
+      screen.getByText("Blank and empty title not allowed"),
+    ).toBeInTheDocument();
   });
 
   test("validates that answers match", () => {

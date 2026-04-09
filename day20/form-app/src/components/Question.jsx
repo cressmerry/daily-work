@@ -83,6 +83,9 @@ function Question({ questions, occupiedIds, onUpdate, hideAnswer, index }) {
             {answer.trim().length > 0 && answer.trim().length < 5 && (
               <p className="error-text">Min 5 characters required</p>
             )}
+            {answer.trim().length == 0 && answer.length > 0 && (
+              <p className="error-text">Blank and empty title not allowed</p>
+            )}
             {answer.trim() &&
               confirmAnswer.trim() &&
               answer.trim() !== confirmAnswer.trim() && (

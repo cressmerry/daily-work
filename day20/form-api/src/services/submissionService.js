@@ -24,10 +24,13 @@ async function validateAndSanitizeSubmissions(submissionArray) {
     if (!validIds.has(item.qId)) {
       throw {
         statusCode: 400,
-        message: `Invalid qId: ${item.qId}. Question does not exist.`,
       };
     }
-
+    if (item.submission.length < 5 || item.submission.length > 255) {
+      throw {
+        statusCode: 400,
+      };
+    }
     return {
       qId: item.qId,
       submission: item.submission,
@@ -99,5 +102,5 @@ module.exports = {
   createSubmission,
   deleteSubmission,
   updateSubmission,
-  getSubmissionById
+  getSubmissionById,
 };

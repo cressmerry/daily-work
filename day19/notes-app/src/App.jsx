@@ -1,67 +1,101 @@
-const request = require("supertest");
-const { expect } = require("chai");
-const app = require("../server");
-const fs = require("fs").promises;
-const path = require("path");
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import AddNote from "./AddNote";
+import Homepage from "./Homepage";
+import Notes from "./Notes";
+import DeleteModal from "./components/DeleteModal";
+import { useState, useEffect } from "react";
+import api from "./api";
 
-const FILE = path.join(__dirname, "../src/data/questions_db.json");
+function App() {
+  const [notes, setNotes] = useState([]);
+  const [noteToDelete, setNoteToDelete] = useState(null);
 
-describe("Questions API", () => {
-  let questionId;
+  useEffect(() => {
+    const fetchNotes = async () => {
+      try {
+        const response = await api.get("/notes");
+        setNotes(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchNotes();
+  }, []);
 
-  before(async () => {
-    await fs.writeFile(FILE, JSON.stringify([]));
-  });
+  const handleCloseNote = async (id) => {
+    try {
+      await api.put(`/notes/${id}/`, { status: "closed" });
+      setNotes((prev) =>
+        prev.map((n) => (n.id === id ? { ...n, status: "closed" } : n)),
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  it("should create a new question", async () => {
-    const res = await request(app)
-      .post("/questions")
-      .send({ qText: "What is JavaScript?" });
+  const confirmDelete = async () => {
+    if (!noteToDelete) return;
+    try {
+      await api.delete(`/notes/${noteToDelete}/`);
+      setNotes((prev) => prev.filter((n) => n.id !== noteToDelete));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setNoteToDelete(null);
+    }
+  };
 
-    expect(res.status).to.equal(201);
-    expect(res.body).to.have.property("qId");
-    expect(res.body.qText).to.equal("What is JavaScript?");
-    questionId = res.body.qId;
-  });
+  return (
+    <BrowserRouter>
+      <div className="app-container">
+        <Navbar />
+        <main className="content-area">
+          <Routes>
+            <Route
+              index
+              element={
+                <div className="page-wrapper">
+                  <Homepage notes={notes} />
+                </div>
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                <div className="page-wrapper">
+                  <AddNote
+                    notes={notes}
+                    setNotes={setNotes}
+                    onDelete={setNoteToDelete}
+                    onClose={handleCloseNote}
+                  />
+                </div>
+              }
+            />
+            <Route
+              path="/notes"
+              element={
+                <div className="wide-page-wrapper">
+                  <Notes
+                    notes={notes}
+                    onDelete={setNoteToDelete}
+                    onClose={handleCloseNote}
+                  />
+                </div>
+              }
+            />
+          </Routes>
+        </main>
+        {noteToDelete && (
+          <DeleteModal
+            onConfirmAction={confirmDelete}
+            onCancelAction={() => setNoteToDelete(null)}
+          />
+        )}
+      </div>
+    </BrowserRouter>
+  );
+}
 
-  it("should return 400 for empty question text", async () => {
-    const res = await request(app)
-      .post("/questions")
-      .send({ qText: "" });
-
-    expect(res.status).to.equal(400);
-  });
-
-  it("should get all questions", async () => {
-    const res = await request(app).get("/questions");
-
-    expect(res.status).to.equal(200);
-    expect(res.body).to.be.an("array");
-    expect(res.body.length).to.equal(1);
-  });
-
-  it("should get a question by ID", async () => {
-    const res = await request(app).get(`/questions/${questionId}`);
-
-    expect(res.status).to.equal(200);
-    expect(res.body.qId).to.equal(questionId);
-  });
-
-  it("should update a question", async () => {
-    const res = await request(app)
-      .put(`/questions/${questionId}`)
-      .send({ qText: "Updated Question Text" });
-
-    expect(res.status).to.equal(200);
-    expect(res.body.qText).to.equal("Updated Question Text");
-  });
-
-  it("should delete a question", async () => {
-    const res = await request(app).delete(`/questions/${questionId}`);
-
-    expect(res.status).to.equal(200);
-
-    const checkRes = await request(app).get(`/questions/${questionId}`);
-    expect(checkRes.status).to.equal(404);
-  });
-});
+export default App;
