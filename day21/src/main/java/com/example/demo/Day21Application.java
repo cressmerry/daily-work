@@ -6,19 +6,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import com.example.demo.controller.NoteController;
-import com.example.demo.service.NotesService;
+import com.example.demo.service.NoteService;
 
 @SpringBootApplication
 public class Day21Application {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(Day21Application.class, args);
-		NoteController controller =  context.getBean(NoteController.class);
-		NotesService service = context.getBean(NotesService.class);
+		SpringApplication.run(Day21Application.class, args);
 	}
-	
-	@Bean
-	NoteController noteController() {
-		return new NoteController();
-	}
+
 }
