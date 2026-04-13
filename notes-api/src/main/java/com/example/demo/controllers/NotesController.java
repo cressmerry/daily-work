@@ -1,31 +1,40 @@
 package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import com.example.demo.entity.Note;
 import com.example.demo.services.NotesService;
-
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/notes")
+@CrossOrigin(origins = "http://localhost:3000")
 public class NotesController {
 
-	@Autowired
-	NotesService notesService;
+    @Autowired
+    private NotesService notesService;
 
-	@GetMapping
-	Iterable<Note> getNotes() {
-		return notesService.getNotes();
-	}
-	
-	@PostMapping
-	void addNote(@RequestBody @Valid Note note) {
-		notesService.createNote(note);
-	}
+    @GetMapping
+    public Iterable<Note> getNotes() {
+        return notesService.getNotes();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addNote(@RequestBody @Valid Note note) {
+        notesService.createNote(note);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateNote(@PathVariable Long id, @RequestBody Note note) {
+        notesService.updateNote(id, note);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteNote(@PathVariable Long id) {
+        notesService.deleteNote(id);
+    }
 }

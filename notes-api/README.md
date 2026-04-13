@@ -5,3 +5,7 @@
 5) Adding DB implementation
 	i) Configured DB in MySQL Workbench
 	ii) Converting POJOs to DB Entities
+	iii) Created NotesRepository
+6) Configured CORS
+7) Ensured transactional rollback
+
