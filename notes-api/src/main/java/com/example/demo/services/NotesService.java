@@ -14,7 +14,7 @@ public class NotesService {
 		return note;
 	}
 
-	public void setNote(Note note) {
+	public void createNote(Note note) {
 		System.out.println(note.getId());
 		System.out.println(note.getTitle());
 	}

@@ -1,10 +1,13 @@
 package com.example.demo.entity;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Note {
-	
 	private long id;
+	@NotBlank
 	private String title;
-	String content;
+	@NotBlank
+	private String content;
 //	STATUS status;
 	
 	public long getId() {
