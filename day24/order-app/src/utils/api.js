@@ -7,13 +7,9 @@ const api = axios.create({
   }
 });
 
-export const placeOrder = async (itemsArray) => {
-  const payload = {
-    orderLines: itemsArray
-  };
-
+export const placeOrder = async (orderData) => {
   try {
-    const response = await api.post('/order', payload);
+    const response = await api.post('/order', orderData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
