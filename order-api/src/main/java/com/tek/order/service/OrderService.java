@@ -26,8 +26,11 @@ public class OrderService {
 	}
 	@Transactional(rollbackFor = Exception.class)
 	public Integer addOrder(OrderEntity order) throws IOException {
-		orderRepository.save(order);
-		return order.getId();
+	    if (order.getOrderLines() != null) {
+	        order.getOrderLines().forEach(line -> line.setOrder(order));
+	    }
+	    orderRepository.save(order);
+	    return order.getId();
 	}
 
 	public Iterable<OrderEntity> getOrders() {

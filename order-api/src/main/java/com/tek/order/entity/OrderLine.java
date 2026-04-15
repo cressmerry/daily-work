@@ -1,7 +1,7 @@
 package com.tek.order.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,50 +13,64 @@ import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class OrderLine {
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private int id;
 
-	@NotBlank
-	private String item;
+    @NotBlank
+    @Column(nullable = false)
+    private String item;
 
-	@Min(value = 1)
-	private float price;
+    @Min(value = 1)
+    @Column(nullable = false)
+    private float price;
 
-	@ManyToOne
-	@JoinColumn(name = "order_id")
-	@JsonBackReference
-	private OrderEntity order;
+    @Min(value = 1)
+    @Column(nullable = false)
+    private int quantity;
 
-	public int getId() {
-		return id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    @JsonBackReference
+    private OrderEntity order;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getItem() {
-		return item;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setItem(String item) {
-		this.item = item;
-	}
+    public String getItem() {
+        return item;
+    }
 
-	public float getPrice() {
-		return price;
-	}
+    public void setItem(String item) {
+        this.item = item;
+    }
 
-	public void setPrice(float price) {
-		this.price = price;
-	}
+    public float getPrice() {
+        return price;
+    }
 
-	public OrderEntity getOrder() {
-		return order;
-	}
+    public void setPrice(float price) {
+        this.price = price;
+    }
 
-	public void setOrder(OrderEntity order) {
-		this.order = order;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public OrderEntity getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderEntity order) {
+        this.order = order;
+    }
 }
