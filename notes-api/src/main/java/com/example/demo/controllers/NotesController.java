@@ -22,14 +22,14 @@ public class NotesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addNote(@RequestBody @Valid Note note) {
-        notesService.createNote(note);
+    public Note addNote(@RequestBody @Valid Note note) {
+        return notesService.createNote(note);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateNote(@PathVariable Long id, @RequestBody Note note) {
-        notesService.updateNote(id, note);
+    public Note updateNote(@PathVariable Long id, @RequestBody Note note) {
+        return notesService.updateNote(id, note);
     }
 
     @DeleteMapping("/{id}")

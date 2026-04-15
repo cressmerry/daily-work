@@ -1,7 +1,5 @@
 package com.example.demo.services;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +17,13 @@ public class NotesService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void createNote(Note note) {
+	public Note createNote(Note note) {
 		notesRepository.save(note);
+		return note;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void updateNote(Long id, Note noteDetails) {
+	public Note updateNote(Long id, Note noteDetails) {
 		Note existingNote = notesRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Note not found with id: " + id));
 
@@ -45,6 +44,7 @@ public class NotesService {
 		}
 
 		notesRepository.save(existingNote);
+		return existingNote;
 	}
 
 	public void deleteNote(Long id) {

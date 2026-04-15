@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -38,11 +39,9 @@ public class NoteController {
 	}
 
 	@PostMapping
-	Integer createOrder(@RequestBody @Valid Order1 order) {
+	Integer createOrder(@RequestBody @Valid Order1 order) throws IOException {
 		return noteService.addOrder(order);
 	}
-	
-	
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

@@ -22,7 +22,7 @@ function ActionButtons({ note, onDelete, onClose }) {
       >
         ✖
       </button>
-      {note.status === "created" && (
+      {note.status === "CREATED" && (
         <button
           className="close-note-button"
           onClick={handleCloseClick}

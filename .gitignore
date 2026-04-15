@@ -60,3 +60,73 @@ coverage/
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
 .project
+
+
+node_modules/
+**/.project
+.metadata/
+*.class
+.vscode/
+
+
+# Miscellaneous
+*.java.hsp
+*.sonarj
+*.sw*
+.DS_Store
+build.sh
+integration-repo
+ivy-cache
+argfile*
+activemq-data/
+classes/
+.cursor/
+
+
+# Log files
+jxl.log
+jmx.log
+derby.log
+
+
+# Gradle artifacts
+.gradle
+.gradletasknamecache
+/build
+buildSrc/build
+/spring-*/build
+/framework-*/build
+/integration-tests/build
+/src/asciidoc/build
+spring-test/test-output/
+
+
+# Maven artifacts
+/target/
+
+
+# Eclipse artifacts, including WTP generated manifests
+bin
+.classpath
+.project
+.settings
+.springBeans
+spring-*/src/main/java/META-INF/MANIFEST.MF
+
+
+# IntelliJ IDEA artifacts and output dirs
+*.iml
+*.ipr
+*.iws
+.idea/*
+!.idea/icon.svg
+out
+test-output
+atlassian-ide-plugin.xml
+
+
+cached-antora-playbook.yml
+
+
+/.kotlin/
+

@@ -12,7 +12,7 @@ function NoteItem({ note, onDelete, onClose }) {
   return (
     <li>
       <div
-        className={`note-content ${note.status === "closed" ? "closed-note" : ""}`}
+        className={`note-content ${note.status === "CLOSED" ? "closed-note" : ""}`}
       >
         <div className="note-header">
           <span className="note-title-text" title={note.title}>

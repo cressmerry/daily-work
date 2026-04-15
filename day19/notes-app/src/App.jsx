@@ -25,9 +25,9 @@ function App() {
 
   const handleCloseNote = async (id) => {
     try {
-      await api.put(`/notes/${id}/`, { status: "closed" });
+      await api.put(`/notes/${id}`, { status: "CLOSED" });
       setNotes((prev) =>
-        prev.map((n) => (n.id === id ? { ...n, status: "closed" } : n)),
+        prev.map((n) => (n.id === id ? { ...n, status: "CLOSED" } : n)),
       );
     } catch (err) {
       console.error(err);
@@ -37,7 +37,7 @@ function App() {
   const confirmDelete = async () => {
     if (!noteToDelete) return;
     try {
-      await api.delete(`/notes/${noteToDelete}/`);
+      await api.delete(`/notes/${noteToDelete}`);
       setNotes((prev) => prev.filter((n) => n.id !== noteToDelete));
     } catch (err) {
       console.error(err);
