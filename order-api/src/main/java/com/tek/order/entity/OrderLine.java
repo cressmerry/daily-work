@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class OrderLine {
@@ -19,6 +20,7 @@ public class OrderLine {
 
     @NotBlank
     @Column(nullable = false)
+    @NotNull
     private String item;
 
     @Min(value = 1)

@@ -22,7 +22,6 @@ public class OrderService {
 
 	public void deleteOrderById(Integer id) {
 		orderRepository.deleteById(id);
-		;
 	}
 	@Transactional(rollbackFor = Exception.class)
 	public Integer addOrder(OrderEntity order) throws IOException {
