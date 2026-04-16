@@ -17,7 +17,9 @@ function OrderInput({ onAdd }) {
   return (
     <form onSubmit={handleAdd} className="space-y-4 mb-6">
       <div>
-        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Item Name</label>
+        <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+          Item Name
+        </label>
         <input
           type="text"
           value={item}
@@ -28,7 +30,9 @@ function OrderInput({ onAdd }) {
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Price</label>
+          <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+            Price
+          </label>
           <input
             type="number"
             value={price}
@@ -38,8 +42,14 @@ function OrderInput({ onAdd }) {
           />
         </div>
         <div>
-          <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Qty</label>
+          <label
+            htmlFor="qty-input"
+            className="block text-xs font-bold text-slate-500 uppercase mb-1"
+          >
+            Qty
+          </label>
           <input
+            id="qty-input"
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
