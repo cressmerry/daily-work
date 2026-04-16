@@ -9,10 +9,10 @@
 		<version>3.4.0</version>
 		<relativePath />
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>day21</artifactId>
+	<groupId>com.tek</groupId>
+	<artifactId>order</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>day21</name>
+	<name>order-api</name>
 	<description>Order Management API</description>
 
 	<properties>

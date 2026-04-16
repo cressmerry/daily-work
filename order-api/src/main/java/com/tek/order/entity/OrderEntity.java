@@ -55,15 +55,6 @@ public class OrderEntity {
         this.orderLines = orderLines;
     }
 
-    public void addOrderLine(OrderLine line) {
-        orderLines.add(line);
-        line.setOrder(this);
-    }
-
-    public void removeOrderLine(OrderLine line) {
-        orderLines.remove(line);
-        line.setOrder(null);
-    }
 }
 enum STATUS{
 	CREATED, IN_TRANSIT, DELIVERED
