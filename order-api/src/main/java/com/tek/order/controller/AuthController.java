@@ -32,8 +32,6 @@ import com.tek.order.repository.UserRepository;
 import com.tek.order.security.jwt.JwtUtils;
 import com.tek.order.service.UserDetailsImplementation;
 
-
-@CrossOrigin(origins = "*", maxAge=3000)
 @RestController
 @RequestMapping("api/auth")
 public class AuthController {
@@ -46,9 +44,6 @@ public class AuthController {
 	
 	@Autowired
 	AuthenticationManager authenticationManager;
-
-	@Autowired
-	PasswordEncoder passwordEncoder;
 
 	@Autowired
 	PasswordEncoder encoder;

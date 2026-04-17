@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public class StatusUpdateRequest {
-	@NotBlank
 	@NotNull
 	private STATUS status;
 
