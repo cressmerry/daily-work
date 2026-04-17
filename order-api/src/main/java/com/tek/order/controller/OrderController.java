@@ -4,6 +4,8 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import com.tek.order.dto.StatusUpdateRequest;
 import com.tek.order.entity.OrderEntity;
 import com.tek.order.service.OrderService;
 import jakarta.validation.Valid;
@@ -21,7 +23,7 @@ public class OrderController {
 	public OrderEntity getOrderById(@PathVariable Integer id) {
 		return orderService.getOrderById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
-	
+
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public Iterable<OrderEntity> getOrders() {
@@ -39,4 +41,11 @@ public class OrderController {
 	public Integer createOrder(@RequestBody @Valid OrderEntity order) throws IOException {
 		return orderService.addOrder(order);
 	}
+
+	@PatchMapping("/{id}/status")
+	@ResponseStatus(HttpStatus.OK)
+	public OrderEntity updateStatus(@PathVariable Integer id, @RequestBody StatusUpdateRequest request) {
+		return orderService.updateOrderStatus(id, request.getStatus());
+	}
+
 }

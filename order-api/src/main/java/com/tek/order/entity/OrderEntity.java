@@ -54,8 +54,13 @@ public class OrderEntity {
     public void setOrderLines(List<OrderLine> orderLines) {
         this.orderLines = orderLines;
     }
+    
+    public STATUS getStatus() {
+        return status;
+    }
 
-}
-enum STATUS{
-	CREATED, IN_TRANSIT, DELIVERED
+    public void setStatus(STATUS status) {
+        this.status = status;
+    }
+
 }

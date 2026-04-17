@@ -3,19 +3,22 @@ package com.tek.order.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.tek.order.entity.OrderEntity;
+import com.tek.order.entity.STATUS;
 import com.tek.order.repository.OrderRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,12 +30,18 @@ class OrderServiceTest {
     @InjectMocks
     private OrderService orderService;
 
+    private OrderEntity testOrder;
+
+    @BeforeEach
+    void setUp() {
+        testOrder = new OrderEntity();
+        testOrder.setId(1);
+        testOrder.setStatus(STATUS.CREATED);
+    }
+
     @Test
-    @DisplayName("Should return order when a valid ID is provided")
     void testGetOrderByIdForSuccessfullFetch() {
-        OrderEntity mockOrder = new OrderEntity();
-        mockOrder.setId(1);
-        when(orderRepository.findById(1)).thenReturn(Optional.of(mockOrder));
+        when(orderRepository.findById(1)).thenReturn(Optional.of(testOrder));
         Optional<OrderEntity> result = orderService.getOrderById(1);
         assertTrue(result.isPresent());
         assertEquals(1, result.get().getId());
@@ -40,24 +49,57 @@ class OrderServiceTest {
     }
 
     @Test
-    @DisplayName("Should return all orders")
-    void testgGetOrdersFoSuccessfullFetch() {
+    void testGetOrdersForSuccessfullFetch() {
         List<OrderEntity> orders = Arrays.asList(new OrderEntity(), new OrderEntity());
         when(orderRepository.findAll()).thenReturn(orders);
         Iterable<OrderEntity> result = orderService.getOrders();
         assertNotNull(result);
-        int size = 0;
-        for (OrderEntity order : result) size++;
+        long size = StreamSupport.stream(result.spliterator(), false).count();
         assertEquals(2, size);
         verify(orderRepository, times(1)).findAll();
     }
-    
 
     @Test
-    @DisplayName("Should call delete on repository when deleting by ID")
     void testDeleteOrderForSuccessfulDeletion() {
         Integer orderId = 1;
         orderService.deleteOrderById(orderId);
         verify(orderRepository, times(1)).deleteById(orderId);
+    }
+
+    @Test
+    void testUpdateOrderStatusForSuccessfullUpdate() {
+        when(orderRepository.findById(1)).thenReturn(Optional.of(testOrder));
+        when(orderRepository.save(any(OrderEntity.class))).thenReturn(testOrder);
+        OrderEntity updatedOrder = orderService.updateOrderStatus(1, STATUS.IN_TRANSIT);
+        assertNotNull(updatedOrder);
+        assertEquals(STATUS.IN_TRANSIT, updatedOrder.getStatus());
+        verify(orderRepository, times(1)).findById(1);
+        verify(orderRepository, times(1)).save(any(OrderEntity.class));
+        updatedOrder = orderService.updateOrderStatus(1, STATUS.DELIVERED);
+        assertNotNull(updatedOrder);
+        assertEquals(STATUS.DELIVERED, updatedOrder.getStatus());
+        verify(orderRepository, times(2)).findById(1);
+        verify(orderRepository, times(2)).save(any(OrderEntity.class));
+    }
+
+    @Test
+    void testUpdateOrderStatusForInvalidOrder() {
+        when(orderRepository.findById(99999)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> {
+            orderService.updateOrderStatus(99, STATUS.DELIVERED);
+        });
+        verify(orderRepository, never()).save(any());
+    }
+    
+    @Test
+    void testUpdateOrderStatusForInvalidTransition() {
+        testOrder.setStatus(STATUS.IN_TRANSIT);
+        when(orderRepository.findById(1)).thenReturn(Optional.of(testOrder));
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            orderService.updateOrderStatus(1, STATUS.CREATED);
+        });
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        assertTrue(exception.getReason().contains("Invalid status transition"));
+        verify(orderRepository, never()).save(any(OrderEntity.class));
     }
 }

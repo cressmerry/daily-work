@@ -17,9 +17,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tek.order.dto.StatusUpdateRequest;
 import com.tek.order.entity.Address;
 import com.tek.order.entity.OrderEntity;
 import com.tek.order.entity.OrderLine;
+import com.tek.order.entity.STATUS;
 import com.tek.order.service.OrderService;
 
 @WebMvcTest(OrderController.class)
@@ -261,5 +263,19 @@ public class OrderControllerTest {
         mockMvc.perform(delete("/order/invalid")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
+    }
+    
+    @Test
+    public void testUpdateStatusForSuccess() throws Exception {
+        testOrder.setStatus(STATUS.IN_TRANSIT);
+        StatusUpdateRequest request = new StatusUpdateRequest();
+        request.setStatus(STATUS.IN_TRANSIT);
+        when(orderService.updateOrderStatus(eq(1), any(STATUS.class))).thenReturn(testOrder);
+        mockMvc.perform(patch("/order/1/status")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("IN_TRANSIT"));
+        verify(orderService, times(1)).updateOrderStatus(eq(1), eq(STATUS.IN_TRANSIT));
     }
 }
