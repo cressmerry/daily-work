@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tek.order.dto.StatusUpdateRequest;
+import com.tek.order.dto.request.StatusUpdateRequest;
 import com.tek.order.entity.Address;
 import com.tek.order.entity.OrderEntity;
 import com.tek.order.entity.OrderLine;

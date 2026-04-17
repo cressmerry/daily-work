@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import com.tek.order.service.UserDetailsImplementation;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.*;
@@ -24,7 +26,7 @@ public class JwtUtils {
 	private int jwtExpirationMs;
 	
 	public String generateJwtToken(Authentication authentication) {
-		UserDetailsImplementation userPrincipal = authentication.getPrincipal();
+		UserDetailsImplementation userPrincipal = (UserDetailsImplementation) authentication.getPrincipal();
 		
 		return Jwts.builder()
 				.setSubject((userPrincipal.getUsername()))

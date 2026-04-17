@@ -6,14 +6,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
+import com.tek.order.entity.User;
 
 import jakarta.transaction.Transactional;
+import com.tek.order.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService{
 	@Autowired
-	UserRespository userRepository;
+	UserRepository userRepository;
 	
 	@Override
 	@Transactional

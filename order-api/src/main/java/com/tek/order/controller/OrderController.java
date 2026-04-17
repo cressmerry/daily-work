@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.tek.order.dto.StatusUpdateRequest;
+import com.tek.order.dto.request.StatusUpdateRequest;
 import com.tek.order.entity.OrderEntity;
 import com.tek.order.service.OrderService;
 import jakarta.validation.Valid;
