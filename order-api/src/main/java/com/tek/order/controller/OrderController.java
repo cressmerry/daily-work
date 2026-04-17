@@ -42,7 +42,7 @@ public class OrderController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public Integer createOrder(@RequestBody @Valid OrderEntity order) throws IOException {
 		return orderService.addOrder(order);
 	}

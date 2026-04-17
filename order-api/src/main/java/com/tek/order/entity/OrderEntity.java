@@ -1,6 +1,8 @@
 package com.tek.order.entity;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -15,7 +17,13 @@ public class OrderEntity {
     @Id
     private int id;
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+    
+
+	@Enumerated(EnumType.STRING)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private STATUS status = STATUS.CREATED;
 
@@ -63,4 +71,11 @@ public class OrderEntity {
         this.status = status;
     }
 
+    public User getUser() {
+    	return user;
+    }
+    
+    public void setUser(User user) {
+    	this.user = user;
+    }
 }
