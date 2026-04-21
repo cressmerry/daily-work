@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.tek.order.dto.request.StatusUpdateRequest;
+import com.tek.order.dto.event.request.StatusUpdateRequest;
 import com.tek.order.entity.OrderEntity;
 import com.tek.order.service.OrderService;
 import jakarta.validation.Valid;

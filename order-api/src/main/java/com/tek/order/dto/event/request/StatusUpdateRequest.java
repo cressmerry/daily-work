@@ -1,4 +1,4 @@
-package com.tek.order.dto.request;
+package com.tek.order.dto.event.request;
 
 import com.tek.order.entity.STATUS;
 

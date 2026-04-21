@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tek.order.dto.request.LoginRequest;
-import com.tek.order.dto.request.SignupRequest;
-import com.tek.order.dto.response.JwtResponse;
-import com.tek.order.dto.response.MessageResponse;
+import com.tek.order.dto.event.request.LoginRequest;
+import com.tek.order.dto.event.request.SignupRequest;
+import com.tek.order.dto.event.response.JwtResponse;
+import com.tek.order.dto.event.response.MessageResponse;
 import com.tek.order.entity.ERole;
 import com.tek.order.entity.Role;
 import com.tek.order.entity.User;

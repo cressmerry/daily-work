@@ -8,4 +8,5 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @SuiteDisplayName("MyTestSuite")
 @SelectPackages("com.tek.order")
 public class TestSuite {
+    
 }

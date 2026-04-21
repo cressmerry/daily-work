@@ -1,4 +1,4 @@
-package com.tek.order.dto.response;
+package com.tek.order.dto.event.response;
 
 public class MessageResponse {
 	private String message;

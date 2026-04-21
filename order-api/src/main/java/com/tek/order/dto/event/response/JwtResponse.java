@@ -1,4 +1,4 @@
-package com.tek.order.dto.response;
+package com.tek.order.dto.event.response;
 
 import java.util.List;
 
